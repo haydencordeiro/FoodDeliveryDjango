@@ -1,0 +1,55 @@
+Login
+http://127.0.0.1:8000/token/login/
+form data:
+username:string
+password:string
+
+Logout
+http://127.0.0.1:8000/token/logout/
+Headers
+Authorization:Token 4534aa014e468c4dc3dcaaa4a30d5442fba43786
+
+Change Password
+http://127.0.0.1:8000/users/set_password/
+Headers
+Authorization:Token 4534aa014e468c4dc3dcaaa4a30d5442fba43786
+Form-data
+new_password:string
+current_password:string
+
+
+Forgot Password
+
+Step1:Send Mail
+http://127.0.0.1:8000/users/reset_password/
+form-data
+email:string
+
+Step2:Confirm
+http://127.0.0.1:8000/users/reset_password_confirm/
+form-data
+uid:string(send in mail)
+token:string(send in mail)
+new_password:string
+
+
+
+
+Get Logged In users information
+http://127.0.0.1:8000/api/userinfo/
+
+
+Register New Customer
+
+
+{
+    
+'aadharNo': 1, 
+'username': 'hayden', 
+'first_name': 'hayden',
+'last_name': 'cordeiro',
+'email': 'cordeirohayden',
+'password':'XYZ@1234'
+
+}
+
