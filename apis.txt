@@ -4,10 +4,13 @@ form data:
 username:string
 password:string
 
+###############################################################################
 Logout
 http://127.0.0.1:8000/token/logout/
 Headers
 Authorization:Token 4534aa014e468c4dc3dcaaa4a30d5442fba43786
+
+###############################################################################
 
 Change Password
 http://127.0.0.1:8000/users/set_password/
@@ -17,6 +20,7 @@ Form-data
 new_password:string
 current_password:string
 
+###############################################################################
 
 Forgot Password
 
@@ -33,23 +37,29 @@ token:string(send in mail)
 new_password:string
 
 
-
+###############################################################################
 
 Get Logged In users information
 http://127.0.0.1:8000/api/userinfo/
 
 
-Register New Customer
+###############################################################################
 
+Register New Customer
+http://127.0.0.1:8000/api/createcustomer/
 
 {
     
-'aadharNo': 1, 
-'username': 'hayden', 
-'first_name': 'hayden',
-'last_name': 'cordeiro',
-'email': 'cordeirohayden',
-'password':'XYZ@1234'
+'aadharNo': 1,integer ( unique) 
+'username': 'hayden', string ( unique)
+'first_name': 'hayden',string
+'last_name': 'cordeiro',string
+'email': 'cordeirohayden',string( unique)
+'password':'XYZ@1234',string
 
 }
+
+###############################################################################
+
+
 

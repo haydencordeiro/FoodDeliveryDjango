@@ -11,7 +11,8 @@ from rest_framework import routers
 urlpatterns = [
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
-    path('api/userinfo/', UserProfileView.as_view(), name='UserProfileView'),
+    path('api/userinfo/', CustomerProfileView.as_view(),
+         name='CustomerProfileView'),
     path('api/createcustomer/', RegisterNewUserCustomer,
          name='RegisterNewUserCustomer'),
     # path('api/', include(router.urls)),

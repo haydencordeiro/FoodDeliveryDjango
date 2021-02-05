@@ -10,15 +10,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class CustomerProfileSerializer(serializers.ModelSerializer):
     # userR = UserSerializer(source='user_set', many=True)
 
     class Meta:
-        model = UserProfile
+        model = CustomerProfile
         fields = '__all__'
 
     def to_representation(self, instance):
-        rep = super(UserProfileSerializer, self).to_representation(instance)
+        rep = super(CustomerProfileSerializer,
+                    self).to_representation(instance)
         for i in instance.user._meta.fields:
             if i.name != "password":
                 rep[str(i.name)] = getattr(instance.user, str(i.name))

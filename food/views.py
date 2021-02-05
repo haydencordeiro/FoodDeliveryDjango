@@ -41,12 +41,12 @@ from datetime import date
 from django.contrib.auth.models import User
 
 
-class UserProfileView(APIView):
+class CustomerProfileView(APIView):
     # permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None, **kwargs):
-        user = UserProfile.objects.first()
-        serializer = UserProfileSerializer(user)
+        user = CustomerProfile.objects.first()
+        serializer = CustomerProfileSerializer(user)
         return Response(serializer.data)
 
 
@@ -57,7 +57,7 @@ def RegisterNewUserCustomer(request):
         return Response({'Error': 'Already Registered with this email'}, status=status.HTTP_406_NOT_ACCEPTABLE)
     if len(User.objects.filter(username=temp['username'])) > 0:
         return Response({'Error': 'This username already exist'}, status=status.HTTP_406_NOT_ACCEPTABLE)
-    if len(UserProfile.objects.filter(aadharNo=temp['aadharNo'])) > 0:
+    if len(CustomerProfile.objects.filter(aadharNo=temp['aadharNo'])) > 0:
         return Response({'Error': 'Already Registered with this aadhar'}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     try:
@@ -66,12 +66,12 @@ def RegisterNewUserCustomer(request):
             first_name=temp['first_name'],
             last_name=temp['last_name'],
             email=temp['email'],
-            password=temp['password'],
         )
+        tempUser.set_password(temp['password'])
         tempUser.save()
-        tempUserProfile = UserProfile(user=tempUser,
-                                      aadharNo=temp['aadharNo'], )
-        tempUserProfile.save()
+        tempCustomerProfile = CustomerProfile(user=tempUser,
+                                              aadharNo=temp['aadharNo'], )
+        tempCustomerProfile.save()
     except:
         return Response(temp, status=status.HTTP_400_BAD_REQUEST)
-    return Response(UserProfileSerializer(tempUserProfile).data, status=status.HTTP_201_CREATED)
+    return Response(CustomerProfileSerializer(tempCustomerProfile).data, status=status.HTTP_201_CREATED)
