@@ -19,18 +19,18 @@ class ShopLocality(models.Model):
         return self.name
 
 
-class Product(models.Model):
+class Shop(models.Model):
     name = models.CharField(max_length=500)
-    price = models.IntegerField()
+    currentOffer = models.IntegerField()
 
     def __str__(self):
         return self.name
 
 
-class Shop(models.Model):
+class Product(models.Model):
     name = models.CharField(max_length=500)
-    products = models.ForeignKey(Product, on_delete=models.CASCADE)
-    currentOffer = models.IntegerField()
+    price = models.IntegerField()
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -39,7 +39,7 @@ class Shop(models.Model):
 class CustomerOrder(models.Model):
     orderFor = models.OneToOneField(
         CustomerProfile, on_delete=models.CASCADE, blank=True)
-    orderFrom = models.OneToOneField(
-        Shop, on_delete=models.CASCADE, blank=True)
     product = models.OneToOneField(
         Product, on_delete=models.CASCADE, blank=True)
+    onTheWay = models.BooleanField(default=False, blank=True)
+    delivered = models.BooleanField(default=False, blank=True)

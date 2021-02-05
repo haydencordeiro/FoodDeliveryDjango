@@ -50,7 +50,7 @@ class CustomerProfileView(APIView):
         return Response(serializer.data)
 
 
-@ api_view(('GET', 'POST'))
+@ api_view(('POST',))
 def RegisterNewUserCustomer(request):
     temp = request.data.copy()
     if len(User.objects.filter(email=temp['email'])) > 0:
@@ -75,3 +75,10 @@ def RegisterNewUserCustomer(request):
     except:
         return Response(temp, status=status.HTTP_400_BAD_REQUEST)
     return Response(CustomerProfileSerializer(tempCustomerProfile).data, status=status.HTTP_201_CREATED)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def CustomerOrders(request):
+    temp = CustomerOrder.objects.filter(orderFor=request.user)
+    return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
