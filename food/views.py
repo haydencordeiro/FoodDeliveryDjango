@@ -42,10 +42,10 @@ from django.contrib.auth.models import User
 
 
 class CustomerProfileView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None, **kwargs):
-        user = CustomerProfile.objects.first()
+        user = CustomerProfile.objects.get(user=request.user)
         serializer = CustomerProfileSerializer(user)
         return Response(serializer.data)
 
