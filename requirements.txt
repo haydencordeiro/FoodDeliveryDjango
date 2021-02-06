@@ -12,6 +12,7 @@ django-rest-passwordreset==1.1.0
 django-templated-mail==1.1.1
 djangorestframework==3.12.2
 djoser==2.1.0
+gunicorn==20.0.4
 idna==2.10
 itypes==1.2.0
 Jinja2==2.11.3
@@ -30,3 +31,4 @@ social-auth-core==4.0.3
 sqlparse==0.4.1
 uritemplate==3.0.1
 urllib3==1.26.3
+whitenoise==5.2.0

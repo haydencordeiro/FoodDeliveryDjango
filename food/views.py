@@ -94,4 +94,6 @@ def CustomerPendingOrders(request):
 
 @ api_view(('GET',))
 @ permission_classes([IsAuthenticated])
-def ListAllShops(request)
+def ListAllShops(request):
+    temp = Shop.objects.all()
+    return Response(ShopSerializer(temp, many=True).data, status=status.HTTP_200_OK)
