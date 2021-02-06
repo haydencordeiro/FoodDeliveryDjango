@@ -37,9 +37,10 @@ class Product(models.Model):
 
 
 class CustomerOrder(models.Model):
-    orderFor = models.OneToOneField(
-        CustomerProfile, on_delete=models.CASCADE, blank=True)
-    product = models.OneToOneField(
+    orderFor = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True)
+    product = models.ForeignKey(
         Product, on_delete=models.CASCADE, blank=True)
     onTheWay = models.BooleanField(default=False, blank=True)
     delivered = models.BooleanField(default=False, blank=True)
+    datetime = models.DateTimeField(auto_now_add=True, null=True)

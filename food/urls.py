@@ -15,7 +15,13 @@ urlpatterns = [
          name='CustomerProfileView'),
     path('api/createcustomer/', RegisterNewUserCustomer,
          name='RegisterNewUserCustomer'),
-    # path('api/', include(router.urls)),
+    path('api/loggedincustomerorders/', LoggedInCustomerOrders,
+         name='LoggedInCustomerOrders'),
+
+    path('api/customerpendingorders/', CustomerPendingOrders,
+         name='CustomerPendingOrders'),
+
+
 
 
 

@@ -1,18 +1,18 @@
-Login
+Login (POST)
 http://127.0.0.1:8000/token/login/
 form data:
 username:string
 password:string
 
 ###############################################################################
-Logout
+Logout(POST)
 http://127.0.0.1:8000/token/logout/
 Headers
 Authorization:Token 4534aa014e468c4dc3dcaaa4a30d5442fba43786
 
 ###############################################################################
 
-Change Password
+Change Password(POST)
 http://127.0.0.1:8000/users/set_password/
 Headers
 Authorization:Token 4534aa014e468c4dc3dcaaa4a30d5442fba43786
@@ -22,7 +22,7 @@ current_password:string
 
 ###############################################################################
 
-Forgot Password
+Forgot Password(POST)
 
 Step1:Send Mail
 http://127.0.0.1:8000/users/reset_password/
@@ -39,14 +39,14 @@ new_password:string
 
 ###############################################################################
 
-Get Logged In users information
+Get Logged In users information(GET)
 http://127.0.0.1:8000/api/userinfo/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 ###############################################################################
 
-Register New Customer
+Register New Customer(POST)
 http://127.0.0.1:8000/api/createcustomer/
 
 {
@@ -62,5 +62,18 @@ http://127.0.0.1:8000/api/createcustomer/
 
 ###############################################################################
 
+Loggen In Customers All orders(GET)
+http://127.0.0.1:8000/api/loggedincustomerorders/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 
+###############################################################################
+
+Get All Orders Which require Delivery(GET)
+http://127.0.0.1:8000/api/customerpendingorders/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+
+###############################################################################
