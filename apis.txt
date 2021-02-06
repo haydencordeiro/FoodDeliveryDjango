@@ -77,3 +77,49 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 
 ###############################################################################
+
+List ALL Shops
+http://127.0.0.1:8000/api/listallshops/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+
+###############################################################################
+
+List All Products
+http://127.0.0.1:8000/api/listallproducts/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+
+###############################################################################
+
+
+Create product Order Customer
+http://127.0.0.1:8000/api/customerbuyproduct/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+{
+    "productId":1
+
+}
+
+
+###############################################################################
+
+
+
+Cancel product order Customer
+http://127.0.0.1:8000/api/customercancelproduct/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+{
+    "productId":1
+
+}
+
+
+###############################################################################
+

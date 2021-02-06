@@ -97,3 +97,39 @@ def CustomerPendingOrders(request):
 def ListAllShops(request):
     temp = Shop.objects.all()
     return Response(ShopSerializer(temp, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def ListAllProducts(request):
+    temp = Product.objects.all()
+    return Response(ProductSerializer(temp, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def CustomerBuyProduct(request):
+    data = request.data.copy()
+    temp = CustomerOrder(
+        orderFor=request.user,
+        product=Product.objects.get(id=data['productId']))
+    temp.save()
+    return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def CustomerCancelProduct(request):
+    data = request.data.copy()
+    temp = CustomerOrder.objects.filter(id=data['productId'])
+    temp.delete()
+    return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def CustomerCancelProduct(request):
+    data = request.data.copy()
+    temp = CustomerOrder.objects.filter(id=data['productId'])
+    temp.delete()
+    return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)

@@ -21,6 +21,17 @@ urlpatterns = [
     path('api/customerpendingorders/', CustomerPendingOrders,
          name='CustomerPendingOrders'),
 
+    path('api/listallshops/', ListAllShops,
+         name='ListAllShops'),
+
+    path('api/listallproducts/', ListAllProducts,
+         name='ListAllProducts'),
+
+    path('api/customerbuyproduct/', CustomerBuyProduct,
+         name='CustomerBuyProduct'),
+    path('api/customercancelproduct/', CustomerCancelProduct,
+         name='CustomerCancelProduct'),
+
 
 
 

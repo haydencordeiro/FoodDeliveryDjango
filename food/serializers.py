@@ -32,6 +32,21 @@ class ShopSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        rep = super(ProductSerializer,
+                    self).to_representation(instance)
+        for i in instance.shop._meta.fields:
+            rep["shop"+str(i.name)] = getattr(instance.shop, str(i.name))
+
+        return rep
+
+
 class CustomerOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
