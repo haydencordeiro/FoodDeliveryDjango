@@ -90,3 +90,8 @@ def LoggedInCustomerOrders(request):
 def CustomerPendingOrders(request):
     temp = CustomerOrder.objects.filter(onTheWay=False)
     return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def ListAllShops(request)
