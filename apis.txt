@@ -78,7 +78,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 ###############################################################################
 
-List ALL Shops
+List ALL Shops(GET)
 http://127.0.0.1:8000/api/listallshops/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
@@ -86,7 +86,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 ###############################################################################
 
-List All Products
+List All Products(GET)
 http://127.0.0.1:8000/api/listallproducts/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
@@ -95,7 +95,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 ###############################################################################
 
 
-Create product Order Customer
+Create product Order Customer(POST)
 http://127.0.0.1:8000/api/customerbuyproduct/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
@@ -110,7 +110,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 
 
-Cancel product order Customer
+Cancel product order Customer(POST)
 http://127.0.0.1:8000/api/customercancelproduct/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
