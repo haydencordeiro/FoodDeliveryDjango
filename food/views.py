@@ -57,8 +57,8 @@ def RegisterNewUserCustomer(request):
         return Response({'Error': 'Already Registered with this email'}, status=status.HTTP_406_NOT_ACCEPTABLE)
     if len(User.objects.filter(username=temp['username'])) > 0:
         return Response({'Error': 'This username already exist'}, status=status.HTTP_406_NOT_ACCEPTABLE)
-    if len(CustomerProfile.objects.filter(aadharNo=temp['aadharNo'])) > 0:
-        return Response({'Error': 'Already Registered with this aadhar'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+    # if len(CustomerProfile.objects.filter(aadharNo=temp['aadharNo'])) > 0:
+    #     return Response({'Error': 'Already Registered with this aadhar'}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
     try:
         tempUser = User(
@@ -69,8 +69,7 @@ def RegisterNewUserCustomer(request):
         )
         tempUser.set_password(temp['password'])
         tempUser.save()
-        tempCustomerProfile = CustomerProfile(user=tempUser,
-                                              aadharNo=temp['aadharNo'], )
+        tempCustomerProfile = CustomerProfile(user=tempUser)
         tempCustomerProfile.save()
     except:
         return Response(temp, status=status.HTTP_400_BAD_REQUEST)

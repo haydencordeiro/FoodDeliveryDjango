@@ -51,7 +51,7 @@ http://127.0.0.1:8000/api/createcustomer/
 
 {
     
-'aadharNo': 1,integer ( unique) 
+
 'username': 'hayden', string ( unique)
 'first_name': 'hayden',string
 'last_name': 'cordeiro',string
