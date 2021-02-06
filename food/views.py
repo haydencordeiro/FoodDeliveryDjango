@@ -63,8 +63,7 @@ def RegisterNewUserCustomer(request):
     try:
         tempUser = User(
             username=temp['username'],
-            first_name=temp['first_name'],
-            last_name=temp['last_name'],
+            first_name=temp['full_name'],
             email=temp['email'],
         )
         tempUser.set_password(temp['password'])
