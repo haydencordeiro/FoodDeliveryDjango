@@ -39,8 +39,12 @@ class Product(models.Model):
 class CustomerOrder(models.Model):
     orderFor = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True)
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, blank=True)
-    onTheWay = models.BooleanField(default=False, blank=True)
-    delivered = models.BooleanField(default=False, blank=True)
-    datetime = models.DateTimeField(auto_now_add=True, null=True)
+    orderImg = models.CharField(max_length=1000, blank=True)
+    product = models.ManyToManyField(
+        Product, blank=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+
+    date = models.DateField(auto_now_add=True, null=True)
+    time = models.TimeField(auto_now_add=True, null=True)
+    status = models.CharField(max_length=1000, null=True)

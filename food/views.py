@@ -54,9 +54,9 @@ class CustomerProfileView(APIView):
 def RegisterNewUserCustomer(request):
     temp = request.data.copy()
     if len(User.objects.filter(email=temp['email'])) > 0:
-        return Response({'Error': 'Already Registered with this email'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response({'Error': 'Already Registered with this email'}, status=status.HTTP_400_BAD_REQUEST)
     if len(User.objects.filter(username=temp['username'])) > 0:
-        return Response({'Error': 'This username already exist'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+        return Response({'Error': 'This username already exist'}, status=status.HTTP_400_BAD_REQUEST)
     # if len(CustomerProfile.objects.filter(aadharNo=temp['aadharNo'])) > 0:
     #     return Response({'Error': 'Already Registered with this aadhar'}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -79,14 +79,15 @@ def RegisterNewUserCustomer(request):
 @ permission_classes([IsAuthenticated])
 def LoggedInCustomerOrders(request):
     temp = CustomerOrder.objects.filter(
-        orderFor=request.user).order_by('-datetime')
+        orderFor=request.user).order_by('-date').order_by('-time')
     return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
 
 
 @ api_view(('GET',))
 @ permission_classes([IsAuthenticated])
 def CustomerPendingOrders(request):
-    temp = CustomerOrder.objects.filter(onTheWay=False)
+    temp = CustomerOrder.objects.filter(
+        orderFor=request.user).filter(status="pending")
     return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
 
 
@@ -108,19 +109,25 @@ def ListAllProducts(request):
 @ permission_classes([IsAuthenticated])
 def CustomerBuyProduct(request):
     data = request.data.copy()
+    tempProductList = []
     temp = CustomerOrder(
         orderFor=request.user,
-        product=Product.objects.get(id=data['productId']))
+        orderImg=data['orderImg'],
+        latitude=data['latitude'],
+        longitude=data['longitude'],
+        status=data['status'],
+
+    )
     temp.save()
-    return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
 
+    for i in list(data['productId']):
+        if i != '[' or i != ']':
+            try:
+                temp.product.add(Product.objects.get(id=i))
+            except:
+                pass
+    temp.save()
 
-@ api_view(('POST',))
-@ permission_classes([IsAuthenticated])
-def CustomerCancelProduct(request):
-    data = request.data.copy()
-    temp = CustomerOrder.objects.filter(id=data['productId'])
-    temp.delete()
     return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
 
 

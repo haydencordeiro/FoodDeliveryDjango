@@ -70,7 +70,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 ###############################################################################
 
-Get All Orders Which require Delivery(GET)
+Get All Orders Which require Delivery of logged in customer(GET)
 http://127.0.0.1:8000/api/customerpendingorders/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
@@ -99,12 +99,15 @@ Create product Order Customer(POST)
 http://127.0.0.1:8000/api/customerbuyproduct/
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
-
 {
-    "productId":1
+"orderImg":"sadgf",
+"latitude":-1,
+"longitude":1,
+"productId":[1,2,3],
+"status":"pending"
+
 
 }
-
 
 ###############################################################################
 
