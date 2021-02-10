@@ -26,7 +26,15 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
         return rep
 
 
+class ShopLocalitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShopLocality
+        fields = '__all__'
+
+
 class ShopSerializer(serializers.ModelSerializer):
+    locality = ShopLocalitySerializer()
+
     class Meta:
         model = Shop
         fields = '__all__'
@@ -42,20 +50,24 @@ class ProductSerializer(serializers.ModelSerializer):
         rep = super(ProductSerializer,
                     self).to_representation(instance)
         for i in instance.shop._meta.fields:
-            rep["shop"+str(i.name)] = getattr(instance.shop, str(i.name))
-
+            if i.name != "locality":
+                rep["shop"+str(i.name)] = getattr(instance.shop, str(i.name))
+            rep["shoplocality"] = instance.shop.locality.name
         return rep
 
 
 class CustomerOrderSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=True)
 
     class Meta:
         model = CustomerOrder
         fields = '__all__'
+        # depth = 1
 
     def to_representation(self, instance):
         rep = super(CustomerOrderSerializer,
                     self).to_representation(instance)
+
         # for i in instance.orderFrom._meta.fields:
         #     rep["orderFrom"+str(i.name)] = getattr(instance.user, str(i.name))
         # for i in instance.product._meta.fields:

@@ -138,3 +138,17 @@ def CustomerCancelProduct(request):
     temp = CustomerOrder.objects.filter(id=data['productId'])
     temp.delete()
     return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET', 'POST'))
+@ permission_classes([IsAuthenticated])
+def DeliveryPendingOrders(request):
+    if request.method == "GET":
+        temp = CustomerOrder.objects.filter(status="pending")
+        return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
+    else:
+        data = request.data.copy()
+        temp = CustomerOrder.objects.get(id=data['orderID'])
+        temp.deliveryboy = DeliveryProfile.objects.get(user=request.user)
+        temp.status = data['status']
+        return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)

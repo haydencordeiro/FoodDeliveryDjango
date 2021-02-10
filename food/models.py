@@ -12,6 +12,14 @@ class CustomerProfile(models.Model):
         return "%s's profile" % self.user
 
 
+class DeliveryProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+    # aadharNo = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "%s's profile" % self.user
+
+
 class ShopLocality(models.Model):
     name = models.CharField(max_length=500)
 
@@ -22,6 +30,9 @@ class ShopLocality(models.Model):
 class Shop(models.Model):
     name = models.CharField(max_length=500)
     currentOffer = models.IntegerField()
+    ShopImg = models.CharField(max_length=1000, blank=True)
+    locality = models.ForeignKey(
+        ShopLocality, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -39,7 +50,6 @@ class Product(models.Model):
 class CustomerOrder(models.Model):
     orderFor = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True)
-    orderImg = models.CharField(max_length=1000, blank=True)
     product = models.ManyToManyField(
         Product, blank=True)
     latitude = models.FloatField(null=True)
@@ -48,3 +58,15 @@ class CustomerOrder(models.Model):
     date = models.DateField(auto_now_add=True, null=True)
     time = models.TimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=1000, null=True)
+    orderPrice = models.FloatField(default=100)
+    deliveryboy = models.ForeignKey(
+        DeliveryProfile, on_delete=models.CASCADE, null=True)
+
+    # @property
+    # def orderPrice(self):
+    #     orderPrice = 0
+    #     for i in self.product:
+    #         orderPrice += i.price
+    #     return orderPrice
+    # orderPrice = self.var1 + self.var2 + self.var3
+    # return orderPrice

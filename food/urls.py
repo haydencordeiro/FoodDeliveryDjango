@@ -33,6 +33,8 @@ urlpatterns = [
          name='CustomerCancelProduct'),
 
 
+    path('api/deliveryboypendingorders/', DeliveryPendingOrders,
+         name='DeliveryPendingOrders'),
 
 
 

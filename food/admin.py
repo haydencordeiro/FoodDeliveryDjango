@@ -51,3 +51,11 @@ class CustomerOrderListAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CustomerOrder, CustomerOrderListAdmin)
+
+
+class DeliveryProfileListAdmin(admin.ModelAdmin):
+    list_display = [
+        field.name for field in DeliveryProfile._meta.fields if True]
+
+
+admin.site.register(DeliveryProfile, DeliveryProfileListAdmin)
