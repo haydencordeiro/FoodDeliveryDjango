@@ -57,6 +57,7 @@ http://127.0.0.1:8000/api/createcustomer/
 'last_name': 'cordeiro',string
 'email': 'cordeirohayden',string( unique)
 'password':'XYZ@1234',string
+'phoneNo':'9596949533 string
 
 }
 

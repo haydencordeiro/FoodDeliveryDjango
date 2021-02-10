@@ -68,7 +68,10 @@ def RegisterNewUserCustomer(request):
         )
         tempUser.set_password(temp['password'])
         tempUser.save()
-        tempCustomerProfile = CustomerProfile(user=tempUser)
+        tempCustomerProfile = CustomerProfile(
+            user=tempUser,
+            phoneNo=temp['phoneNo']
+        )
         tempCustomerProfile.save()
     except:
         return Response(temp, status=status.HTTP_400_BAD_REQUEST)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import *
-
+from datetime import datetime
 from django.contrib.auth.models import User
 
 
@@ -67,10 +67,13 @@ class CustomerOrderSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super(CustomerOrderSerializer,
                     self).to_representation(instance)
+        rep['customersName'] = instance.orderFor.first_name
+        rep['customerPhoneNo'] = CustomerProfile.objects.get(
+            user=instance.orderFor).phoneNo
 
-        # for i in instance.orderFrom._meta.fields:
-        #     rep["orderFrom"+str(i.name)] = getattr(instance.user, str(i.name))
-        # for i in instance.product._meta.fields:
-        #     rep["product"+str(i.name)] = getattr(instance.product, str(i.name))
+        t = str(instance.time).split(':')
+
+        d = datetime.strptime(t[0]+":"+t[1], "%H:%M")
+        rep['time'] = d.strftime("%I:%M %p")
 
         return rep
