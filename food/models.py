@@ -61,8 +61,9 @@ class CustomerOrder(models.Model):
     status = models.CharField(max_length=1000, null=True)
     orderPrice = models.FloatField(default=100)
     deliveryboy = models.ForeignKey(
-        DeliveryProfile, on_delete=models.CASCADE, null=True)
-
+        DeliveryProfile, on_delete=models.CASCADE, null=True, blank=True)
+    locality = models.ForeignKey(
+        ShopLocality, on_delete=models.CASCADE, null=True, blank=True)
     # @property
     # def orderPrice(self):
     #     orderPrice = 0
