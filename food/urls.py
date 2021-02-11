@@ -35,6 +35,8 @@ urlpatterns = [
 
     path('api/deliveryboypendingorders/', DeliveryPendingOrders,
          name='DeliveryPendingOrders'),
+    path('api/deliveryboyinorderorders/', DeliveryinorderOrders,
+         name='DeliveryinorderOrders'),
 
 
 

@@ -155,3 +155,18 @@ def DeliveryPendingOrders(request):
         temp.deliveryboy = DeliveryProfile.objects.get(user=request.user)
         temp.status = data['status']
         return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET', 'POST'))
+@ permission_classes([IsAuthenticated])
+def DeliveryinorderOrders(request):
+    if request.method == "GET":
+        temp = CustomerOrder.objects.filter(deliveryboy=DeliveryProfile.objects.get(
+            user=request.user)).filter(status="inorder")
+        return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
+    # else:
+        # data = request.data.copy()
+        # temp = CustomerOrder.objects.get(id=data['orderID'])
+        # temp.deliveryboy = DeliveryProfile.objects.get(user=request.user)
+        # temp.status = data['status']
+        # return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
