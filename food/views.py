@@ -45,7 +45,10 @@ class CustomerProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None, **kwargs):
-        user = CustomerProfile.objects.get(user=request.user)
+        try:
+            user = CustomerProfile.objects.get(user=request.user)
+        except:
+            pass
         serializer = CustomerProfileSerializer(user)
         return Response(serializer.data)
 

@@ -23,6 +23,9 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
         for i in instance.user._meta.fields:
             if i.name != "password":
                 rep[str(i.name)] = getattr(instance.user, str(i.name))
+
+        rep["last_login"] = instance.user.last_login.strftime(
+            '%y-%m-%d %a %I:%M:%S')
         return rep
 
 

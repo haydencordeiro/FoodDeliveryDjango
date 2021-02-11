@@ -64,11 +64,3 @@ class CustomerOrder(models.Model):
         DeliveryProfile, on_delete=models.CASCADE, null=True, blank=True)
     locality = models.ForeignKey(
         ShopLocality, on_delete=models.CASCADE, null=True, blank=True)
-    # @property
-    # def orderPrice(self):
-    #     orderPrice = 0
-    #     for i in self.product:
-    #         orderPrice += i.price
-    #     return orderPrice
-    # orderPrice = self.var1 + self.var2 + self.var3
-    # return orderPrice
