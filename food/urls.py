@@ -13,6 +13,8 @@ urlpatterns = [
     path('', include('djoser.urls.authtoken')),
     path('api/userinfo/', CustomerProfileView.as_view(),
          name='CustomerProfileView'),
+    path('api/deliveryboyinfo/', DeliveryProfileView.as_view(),
+         name='DeliveryProfileView'),
     path('api/createcustomer/', RegisterNewUserCustomer,
          name='RegisterNewUserCustomer'),
     path('api/loggedincustomerorders/', LoggedInCustomerOrders,

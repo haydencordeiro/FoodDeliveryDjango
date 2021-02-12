@@ -29,6 +29,25 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
         return rep
 
 
+class DeliveryProfileSerializer(serializers.ModelSerializer):
+    # userR = UserSerializer(source='user_set', many=True)
+
+    class Meta:
+        model = DeliveryProfile
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        rep = super(DeliveryProfileSerializer,
+                    self).to_representation(instance)
+        for i in instance.user._meta.fields:
+            if i.name != "password":
+                rep[str(i.name)] = getattr(instance.user, str(i.name))
+
+        rep["last_login"] = instance.user.last_login.strftime(
+            '%y-%m-%d %a %I:%M:%S')
+        return rep
+
+
 class ShopLocalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = ShopLocality

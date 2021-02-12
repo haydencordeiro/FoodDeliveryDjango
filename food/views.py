@@ -53,6 +53,18 @@ class CustomerProfileView(APIView):
         return Response(serializer.data)
 
 
+class DeliveryProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None, **kwargs):
+        try:
+            user = DeliveryProfile.objects.get(user=request.user)
+        except:
+            pass
+        serializer = DeliveryProfileSerializer(user)
+        return Response(serializer.data)
+
+
 @ api_view(('POST',))
 def RegisterNewUserCustomer(request):
     temp = request.data.copy()
