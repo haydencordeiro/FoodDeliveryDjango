@@ -169,6 +169,7 @@ def DeliveryPendingOrders(request):
         temp = CustomerOrder.objects.get(id=data['orderID'])
         temp.deliveryboy = DeliveryProfile.objects.get(user=request.user)
         temp.status = data['status']
+        temp.save()
         return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
 
 
