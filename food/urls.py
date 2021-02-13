@@ -17,6 +17,9 @@ urlpatterns = [
          name='DeliveryProfileView'),
     path('api/createcustomer/', RegisterNewUserCustomer,
          name='RegisterNewUserCustomer'),
+    path('api/createdeliveryboy/', RegisterNewUserDeliveryBoy,
+         name='RegisterNewUserDeliveryBoy'),
+
     path('api/loggedincustomerorders/', LoggedInCustomerOrders,
          name='LoggedInCustomerOrders'),
 

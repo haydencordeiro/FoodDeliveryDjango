@@ -75,6 +75,27 @@ http://127.0.0.1:8000/api/createcustomer/
 
 ###############################################################################
 
+###############################################################################
+
+
+
+
+Register New DelvieryBoy(POST)
+http://127.0.0.1:8000/api/createdeliveryboy/
+
+{
+    
+
+'username': 'hayden', string ( unique)
+'first_name': 'hayden',string
+'last_name': 'cordeiro',string
+'email': 'cordeirohayden',string( unique)
+'password':'XYZ@1234',string
+'phoneNo':'9596949533 string
+
+}
+
+###############################################################################
 Loggen In Customers All orders(GET)
 http://127.0.0.1:8000/api/loggedincustomerorders/
 Header

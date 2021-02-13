@@ -16,6 +16,7 @@ class CustomerProfile(models.Model):
 class DeliveryProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
     # aadharNo = models.IntegerField(default=0)
+    phoneNo = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return "%s's profile" % self.user

@@ -93,6 +93,34 @@ def RegisterNewUserCustomer(request):
     return Response(CustomerProfileSerializer(tempCustomerProfile).data, status=status.HTTP_201_CREATED)
 
 
+@ api_view(('POST',))
+def RegisterNewUserDeliveryBoy(request):
+    temp = request.data.copy()
+    if len(User.objects.filter(email=temp['email'])) > 0:
+        return Response({'Error': 'Already Registered with this email'}, status=status.HTTP_400_BAD_REQUEST)
+    if len(User.objects.filter(username=temp['username'])) > 0:
+        return Response({'Error': 'This username already exist'}, status=status.HTTP_400_BAD_REQUEST)
+    # if len(CustomerProfile.objects.filter(aadharNo=temp['aadharNo'])) > 0:
+    #     return Response({'Error': 'Already Registered with this aadhar'}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    try:
+        tempUser = User(
+            username=temp['username'],
+            first_name=temp['full_name'],
+            email=temp['email'],
+        )
+        tempUser.set_password(temp['password'])
+        tempUser.save()
+        tempDeliveryProfile = DeliveryProfile(
+            user=tempUser,
+            phoneNo=temp['phoneNo']
+        )
+        tempDeliveryProfile.save()
+    except:
+        return Response(temp, status=status.HTTP_400_BAD_REQUEST)
+    return Response(DeliveryProfileSerializer(tempDeliveryProfile).data, status=status.HTTP_201_CREATED)
+
+
 @ api_view(('GET',))
 @ permission_classes([IsAuthenticated])
 def LoggedInCustomerOrders(request):

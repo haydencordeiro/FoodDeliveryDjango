@@ -24,8 +24,11 @@ class CustomerProfileSerializer(serializers.ModelSerializer):
             if i.name != "password":
                 rep[str(i.name)] = getattr(instance.user, str(i.name))
 
-        rep["last_login"] = instance.user.last_login.strftime(
-            '%y-%m-%d %a %I:%M:%S')
+        try:
+            rep["last_login"] = instance.user.last_login.strftime(
+                '%y-%m-%d %a %I:%M:%S')
+        except:
+            pass
         return rep
 
 
@@ -43,8 +46,11 @@ class DeliveryProfileSerializer(serializers.ModelSerializer):
             if i.name != "password":
                 rep[str(i.name)] = getattr(instance.user, str(i.name))
 
-        rep["last_login"] = instance.user.last_login.strftime(
-            '%y-%m-%d %a %I:%M:%S')
+        try:
+            rep["last_login"] = instance.user.last_login.strftime(
+                '%y-%m-%d %a %I:%M:%S')
+        except:
+            pass
         return rep
 
 
