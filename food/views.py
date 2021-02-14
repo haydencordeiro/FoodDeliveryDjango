@@ -65,6 +65,21 @@ class DeliveryProfileView(APIView):
         return Response(serializer.data)
 
 
+@api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def WhoAmI(request):
+    data = {
+
+    }
+    temp = CustomerProfile.objects.filter(user=request.user)
+    if len(temp) > 0:
+        data['iam'] = "customer"
+        return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
+    else:
+        data['iam'] = "deliveryboy"
+        return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
+
+
 @ api_view(('POST',))
 def RegisterNewUserCustomer(request):
     temp = request.data.copy()

@@ -9,8 +9,12 @@ from rest_framework import routers
 
 
 urlpatterns = [
+
+
     path('', include('djoser.urls')),
     path('', include('djoser.urls.authtoken')),
+    path('api/whoami/', WhoAmI,
+         name='WhoAmI'),
     path('api/userinfo/', CustomerProfileView.as_view(),
          name='CustomerProfileView'),
     path('api/deliveryboyinfo/', DeliveryProfileView.as_view(),
