@@ -271,3 +271,24 @@ def UpdateOrderStatus(request):
     temp.status = request.data["status"]
     temp.save()
     return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def AddShop(request):
+    data = request.data
+    temp = Shop(
+        name=data["name"],
+        currentOffer=float(data["currentOffer"]),
+        ShopImg=data["ShopImg"],
+        locality=ShopLocality.objects.filter(id=int(data["locality"])).first(),
+        latitude=float(data["latitude"]),
+        longitude=float(data["longitude"]),
+        addressinwords=data["addressinwords"],
+        phoneNo=data["phoneNo"],
+        email=data["email"],
+
+    )
+
+    temp.save()
+    return Response(ShopSerializer(temp).data, status=status.HTTP_200_OK)

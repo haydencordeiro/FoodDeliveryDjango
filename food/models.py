@@ -31,10 +31,16 @@ class ShopLocality(models.Model):
 
 class Shop(models.Model):
     name = models.CharField(max_length=500)
-    currentOffer = models.IntegerField()
+    currentOffer = models.FloatField()
     ShopImg = models.CharField(max_length=1000, blank=True)
     locality = models.ForeignKey(
         ShopLocality, on_delete=models.CASCADE, null=True)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+    addressinwords = models.CharField(
+        max_length=1000, default="")
+    phoneNo = models.CharField(max_length=10, blank=True)
+    email = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.name

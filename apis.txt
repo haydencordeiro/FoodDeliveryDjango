@@ -245,3 +245,28 @@ status:pending
 orderID:18
 
 ###############################################################################
+
+
+###############################################################################
+
+Add Shop(POST)
+
+http://127.0.0.1:8000/api/addshop/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+name:sagdfaskjsgfd
+email:sadfsjdhfsadjf@gmail.com
+phoneNo:2152345612
+currentOffer:1.2
+ShopImg:test
+locality:1
+latitude:-1
+longitude:-2
+addressinwords:test
+
+
+###############################################################################
+
+
+
