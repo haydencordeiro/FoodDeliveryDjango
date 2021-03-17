@@ -37,6 +37,14 @@ class ShopListAdmin(admin.ModelAdmin):
 admin.site.register(Shop, ShopListAdmin)
 
 
+class ProductCategoryAdmin(admin.ModelAdmin):
+    list_display = [
+        field.name for field in ProductCategory._meta.fields if True]
+
+
+admin.site.register(ProductCategory, ProductCategoryAdmin)
+
+
 class ProductListAdmin(admin.ModelAdmin):
     list_display = [
         field.name for field in Product._meta.fields if True]

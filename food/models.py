@@ -40,10 +40,21 @@ class Shop(models.Model):
         return self.name
 
 
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     name = models.CharField(max_length=500)
-    price = models.IntegerField()
+    price = models.FloatField()
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(
+        ProductCategory, on_delete=models.CASCADE, null=True)
+    productImage = models.CharField(
+        max_length=1000, default="https://i.imgur.com/K1zmsYt.jpg")
 
     def __str__(self):
         return self.name
