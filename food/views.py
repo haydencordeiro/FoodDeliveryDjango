@@ -244,7 +244,7 @@ def AddProduct(request):
     temp = Product(
 
         name=data['name'],
-        price=data['price'],
+        price=float(data['price']),
         shop=Shop.objects.get(id=int(data["shop"])),
         category=ProductCategory.objects.get(id=int(data["category"])),
         productImage=data['productImage'],
@@ -301,3 +301,17 @@ def AllProductsOfShop(request):
     temp = Product.objects.filter(
         shop=Shop.objects.filter(id=data["shopID"]).first())
     return Response(ProductSerializer(temp, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST', 'GET'))
+# @ permission_classes([IsAuthenticated])
+def FirebaseTokenView(request):
+    if request.method == "GET":
+        return Response(FireabaseTokenSerializer(FireabaseToken.objects.all(), many=True).data, status=status.HTTP_200_OK)
+    else:
+        data = request.data
+        temp = FireabaseToken(
+            token=request.data["token"]
+        )
+        temp.save()
+        return Response(FireabaseTokenSerializer(temp).data, status=status.HTTP_200_OK)

@@ -54,6 +54,12 @@ class DeliveryProfileSerializer(serializers.ModelSerializer):
         return rep
 
 
+class FireabaseTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FireabaseToken
+        fields = '__all__'
+
+
 class ShopLocalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = ShopLocality

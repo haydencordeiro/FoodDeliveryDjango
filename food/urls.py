@@ -60,6 +60,12 @@ urlpatterns = [
 
     path('api/addshop/', AddShop,
          name='AddShop'),
+    path('api/allproductsshop/', AllProductsOfShop,
+         name='AllProductsOfShop'),
+
+    path('api/firebasetoken/', FirebaseTokenView,
+         name='FirebaseTokenView'),
+
 
 
 

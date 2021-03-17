@@ -93,3 +93,10 @@ class CustomerOrder(models.Model):
         max_length=1000, default="")
     typeOfPayment = models.ForeignKey(
         PaymentCategory, on_delete=models.CASCADE, null=True)
+
+
+class FireabaseToken(models.Model):
+    token = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.token
