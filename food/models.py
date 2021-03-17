@@ -60,6 +60,13 @@ class Product(models.Model):
         return self.name
 
 
+class PaymentCategory(models.Model):
+    name = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.name
+
+
 class CustomerOrder(models.Model):
     orderFor = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True)
@@ -76,3 +83,7 @@ class CustomerOrder(models.Model):
         DeliveryProfile, on_delete=models.CASCADE, null=True, blank=True)
     locality = models.ForeignKey(
         ShopLocality, on_delete=models.CASCADE, null=True, blank=True)
+    addressinwords = models.CharField(
+        max_length=1000, default="")
+    typeOfPayment = models.ForeignKey(
+        PaymentCategory, on_delete=models.CASCADE, null=True)

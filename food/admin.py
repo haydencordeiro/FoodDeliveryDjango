@@ -21,6 +21,14 @@ class CustomerProfileListAdmin(admin.ModelAdmin):
 admin.site.register(CustomerProfile, CustomerProfileListAdmin)
 
 
+class PaymentCategoryListAdmin(admin.ModelAdmin):
+    list_display = [
+        field.name for field in PaymentCategory._meta.fields if True]
+
+
+admin.site.register(PaymentCategory, PaymentCategoryListAdmin)
+
+
 class ShopLocalityListAdmin(admin.ModelAdmin):
     list_display = [
         field.name for field in ShopLocality._meta.fields if True]

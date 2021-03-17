@@ -177,6 +177,8 @@ def CustomerBuyProduct(request):
         latitude=data['latitude'],
         longitude=data['longitude'],
         status=data['status'],
+        addressinwords=data["addressinwords"],
+        typeOfPayment=int(data["typeOfPayment"])
 
     )
     temp.save()
