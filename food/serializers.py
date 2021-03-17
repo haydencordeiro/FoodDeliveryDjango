@@ -68,6 +68,13 @@ class ShopSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ProductCategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProductCategory
+        fields = '__all__'
+
+
 class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:

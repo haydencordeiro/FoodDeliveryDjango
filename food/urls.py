@@ -48,5 +48,13 @@ urlpatterns = [
          name='DeliveryinorderOrders'),
 
 
+    # vendor
+    path('api/addproduct/', AddProduct,
+         name='AddProduct'),
+    path('api/allproductcategories/', ListAllProductCategories,
+         name='ListAllProductCategories'),
+
+
+
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

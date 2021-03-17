@@ -231,3 +231,33 @@ def DeliveryinorderOrders(request):
         # temp.deliveryboy = DeliveryProfile.objects.get(user=request.user)
         # temp.status = data['status']
         # return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+# Vendor
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def AddProduct(request):
+    data = request.data.copy()
+
+    temp = Product(
+
+        name=data['name'],
+        price=data['price'],
+        shop=Shop.objects.get(id=int(data["shop"])),
+        category=ProductCategory.objects.get(id=int(data["category"])),
+        productImage=data['productImage'],
+
+
+    )
+    temp.save()
+
+    return Response(ProductSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def ListAllProductCategories(request):
+    temp = ProductCategory.objects.all()
+    return Response(ProductCategorySerializer(temp, many=True).data, status=status.HTTP_200_OK)

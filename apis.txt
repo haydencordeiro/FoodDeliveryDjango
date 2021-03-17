@@ -201,3 +201,36 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 
 ###############################################################################
+
+
+
+###############################################################################
+
+Add products (POST)
+http://127.0.0.1:8000/api/addproduct/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+Body
+name:test product
+price:12
+shop:1
+category:1
+productImage:https://imgur.com/r/food/K1zmsYt
+
+
+
+###############################################################################
+
+
+###############################################################################
+
+List all product categories (GET)
+http://127.0.0.1:8000/api/allproductcategories/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+
+
+###############################################################################
+
