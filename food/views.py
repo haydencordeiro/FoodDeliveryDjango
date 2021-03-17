@@ -292,3 +292,12 @@ def AddShop(request):
 
     temp.save()
     return Response(ShopSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def AllProductsOfShop(request):
+    data = request.data
+    temp = Product.objects.filter(
+        shop=Shop.objects.filter(id=data["shopID"]).first())
+    return Response(ProductSerializer(temp, many=True).data, status=status.HTTP_200_OK)
