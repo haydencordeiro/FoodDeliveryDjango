@@ -261,3 +261,13 @@ def AddProduct(request):
 def ListAllProductCategories(request):
     temp = ProductCategory.objects.all()
     return Response(ProductCategorySerializer(temp, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def UpdateOrderStatus(request):
+    temp = CustomerOrder.objects.filter(
+        id=int(request.data["orderID"])).first()
+    temp.status = request.data["status"]
+    temp.save()
+    return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)
