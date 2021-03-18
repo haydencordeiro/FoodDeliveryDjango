@@ -39,6 +39,7 @@ import collections
 import json
 from datetime import date
 from django.contrib.auth.models import User
+from django.db.models import Count, Sum
 
 
 class CustomerProfileView(APIView):
@@ -179,7 +180,8 @@ def CustomerBuyProduct(request):
         status=data['status'],
         addressinwords=data["addressinwords"],
         typeOfPayment=PaymentCategory.objects.filter(
-            name=data["typeOfPayment"]).first()
+            name=data["typeOfPayment"]).first(),
+        shop=Shop.object.filter(id=int(data["shopID"])).first()
 
     )
     temp.save()
@@ -305,7 +307,7 @@ def AllProductsOfShop(request):
 
 
 @ api_view(('POST', 'GET'))
-# @ permission_classes([IsAuthenticated])
+@ permission_classes([IsAuthenticated])
 def FirebaseTokenView(request):
     if request.method == "GET":
         return Response(FireabaseTokenSerializer(FireabaseToken.objects.all(), many=True).data, status=status.HTTP_200_OK)
@@ -316,3 +318,15 @@ def FirebaseTokenView(request):
         )
         temp.save()
         return Response(FireabaseTokenSerializer(temp).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+# @ permission_classes([IsAuthenticated])
+def ShopAnalysis(request):
+    shopID = int(request.data['shopID'])
+    temp = CustomerOrder.objects.filter(shop=Shop.objects.filter(
+        id=shopID).first()).values('date').annotate(price=Sum('orderPrice'))
+    dates = [i['date'] for i in temp]
+    price = [i['price'] for i in temp]
+
+    return Response({"dates": dates, "prices": price}, status=status.HTTP_200_OK)

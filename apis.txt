@@ -140,8 +140,8 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 "productId":[1,2,3],
 "status":"pending",
 addressinwords:"home",
-typeOfPayment:1(int 1 for cash 2 for card)
-
+typeOfPayment:cash (cash or card string)
+shop:1 (int)
 
 }
 
@@ -292,6 +292,22 @@ token:sadfhkas
 
 
 ###############################################################################
+
+###############################################################################
+Shop Analysis (POST)
+http://127.0.0.1:8000/api/shopanalysis/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+shopID:1(int)
+
+
+###############################################################################
+
+
+
+
+
 
 
 

@@ -41,6 +41,8 @@ class Shop(models.Model):
         max_length=1000, default="")
     phoneNo = models.CharField(max_length=10, blank=True)
     email = models.CharField(max_length=10, blank=True)
+    date = models.DateField(auto_now_add=True, null=True)
+    time = models.TimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
@@ -78,6 +80,8 @@ class CustomerOrder(models.Model):
         User, on_delete=models.CASCADE, blank=True)
     product = models.ManyToManyField(
         Product, blank=True)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
 

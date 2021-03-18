@@ -67,6 +67,10 @@ urlpatterns = [
          name='FirebaseTokenView'),
 
 
+    path('api/shopanalysis/', ShopAnalysis,
+         name='ShopAnalysis'),
+
+
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
