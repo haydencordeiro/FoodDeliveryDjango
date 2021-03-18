@@ -76,5 +76,10 @@ urlpatterns = [
          name='UpdateShopDetails'),
 
 
+    path('api/deleteproduct/', DeleteProduct,
+         name='DeleteProduct'),
+    path('api/updateproduct/', UpdateProduct,
+         name='UpdateProduct'),
+
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

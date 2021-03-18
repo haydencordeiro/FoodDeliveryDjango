@@ -355,3 +355,26 @@ def UpdateShopDetails(request):
     shop.save()
 
     return Response(ShopSerializer(shop).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def DeleteProduct(request):
+    data = request.data
+    product = Product.objects.filter(id=int(data["prodID"])).first()
+    product.delete()
+
+    return Response({}, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def UpdateProduct(request):
+    data = request.data
+    product = Product.objects.filter(id=int(data["prodID"])).first()
+    product.name = data["name"]
+    product.price = data["price"]
+
+    product.save()
+
+    return Response(ProductSerializer(product).data, status=status.HTTP_200_OK)
