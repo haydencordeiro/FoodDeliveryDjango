@@ -41,6 +41,8 @@ import json
 from datetime import date
 from django.contrib.auth.models import User
 from django.db.models import Count, Sum
+import datetime
+from datetime import datetime, timedelta
 
 
 class CustomerProfileView(APIView):
@@ -325,12 +327,23 @@ def FirebaseTokenView(request):
 @ permission_classes([IsAuthenticated])
 def ShopAnalysis(request):
     shopID = int(request.data['shopID'])
-    temp = CustomerOrder.objects.filter(shop=Shop.objects.filter(
-        id=shopID).first()).values('date').annotate(price=Sum('orderPrice'))
-    dates = [i['date'] for i in temp]
-    price = [i['price'] for i in temp]
+    today = datetime.today().weekday()
+    sunday = datetime.today() - timedelta(days=today+1)
+    last_week = [["Sun", 0, 0], ["Mon", 0, 0], ["Tue", 0, 0], [
+        "Wed", 0, 0], ["Thu", 0, 0], ["Fri", 0, 0], ["Sat", 0, 0]]
+    for i in range(today+2):
+        temp = CustomerOrder.objects.filter(shop=Shop.objects.filter(
+            id=shopID).first()).filter(date=sunday).values("date").annotate(price=Sum('orderPrice')).annotate(c=Count('id'))
 
-    return Response({"dates": dates, "prices": price}, status=status.HTTP_200_OK)
+        try:
+            last_week[i] = [last_week[i][0], temp[0]["c"], temp[0]["price"]]
+        except:
+            pass
+
+        sunday += timedelta(days=1)
+    # print(last_week)
+
+    return Response({"last_week": last_week}, status=status.HTTP_200_OK)
 
 
 @ api_view(('POST',))
