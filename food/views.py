@@ -178,7 +178,8 @@ def CustomerBuyProduct(request):
         longitude=data['longitude'],
         status=data['status'],
         addressinwords=data["addressinwords"],
-        typeOfPayment=int(data["typeOfPayment"])
+        typeOfPayment=PaymentCategory.objects.filter(
+            name=data["typeOfPayment"]).first()
 
     )
     temp.save()
