@@ -344,7 +344,7 @@ price:1 (float)
 ###############################################################################
 Delete Product (POST)
 
-http://127.0.0.1:8000/api/updateproduct/
+http://127.0.0.1:8000/api/deleteproduct/
 
 Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
@@ -355,10 +355,14 @@ prodID:1(int)
 
 ###############################################################################
 
+Logged in vendors shop (GET)
+http://127.0.0.1:8000/api/loggedinvendorshop/
+
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 
-
-
+###############################################################################
 
 
 

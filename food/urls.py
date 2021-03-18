@@ -81,5 +81,9 @@ urlpatterns = [
     path('api/updateproduct/', UpdateProduct,
          name='UpdateProduct'),
 
+    path('api/loggedinvendorshop/', LoggedInVendorShop,
+         name='LoggedInVendorShop'),
+
+
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

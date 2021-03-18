@@ -30,6 +30,8 @@ class ShopLocality(models.Model):
 
 
 class Shop(models.Model):
+    vendor = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=500)
     currentOffer = models.FloatField()
     ShopImg = models.CharField(max_length=1000, blank=True)

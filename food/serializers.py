@@ -73,6 +73,21 @@ class ShopSerializer(serializers.ModelSerializer):
         model = Shop
         fields = '__all__'
 
+    def to_representation(self, instance):
+        rep = super(ShopSerializer,
+                    self).to_representation(instance)
+        for i in instance.vendor._meta.fields:
+            if i.name != "password":
+                rep[str(i.name)] = getattr(instance.vendor, str(i.name))
+
+        try:
+            rep["last_login"] = instance.vendor.last_login.strftime(
+                '%y-%m-%d %a %I:%M:%S')
+        except:
+            pass
+        rep["shopID"] = instance.id
+        return rep
+
 
 class ProductCategorySerializer(serializers.ModelSerializer):
 

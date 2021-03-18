@@ -378,3 +378,11 @@ def UpdateProduct(request):
     product.save()
 
     return Response(ProductSerializer(product).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def LoggedInVendorShop(request):
+    data = request.data
+    shop = Shop.objects.filter(vendor=request.user).first()
+    return Response(ShopSerializer(shop).data, status=status.HTTP_200_OK)
