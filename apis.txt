@@ -367,3 +367,15 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 
 
+Customer :
+customer
+customer
+
+DelvieryBoy
+delivery
+delivery
+
+
+Admin/vendor
+hayden
+XYZ@1234
