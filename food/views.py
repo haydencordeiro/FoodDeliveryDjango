@@ -289,6 +289,7 @@ def UpdateOrderStatus(request):
 def AddShop(request):
     data = request.data
     temp = Shop(
+        vendor=request.user,
         name=data["name"],
         currentOffer=float(data["currentOffer"]),
         ShopImg=data["ShopImg"],
