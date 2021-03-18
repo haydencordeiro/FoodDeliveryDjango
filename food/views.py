@@ -75,10 +75,15 @@ def WhoAmI(request):
     data = {
 
     }
+    vendor = Shop.objects.filter(vendor=request.user)
+    if len(vendor) > 0:
+        data['iam'] = "vendor"
+        return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
     temp = CustomerProfile.objects.filter(user=request.user)
     if len(temp) > 0:
         data['iam'] = "customer"
         return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
+
     else:
         data['iam'] = "deliveryboy"
         return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
