@@ -1,3 +1,4 @@
+from re import S
 from django.shortcuts import render
 from .models import *
 from .serializers import *
@@ -321,7 +322,7 @@ def FirebaseTokenView(request):
 
 
 @ api_view(('POST',))
-# @ permission_classes([IsAuthenticated])
+@ permission_classes([IsAuthenticated])
 def ShopAnalysis(request):
     shopID = int(request.data['shopID'])
     temp = CustomerOrder.objects.filter(shop=Shop.objects.filter(
@@ -330,3 +331,14 @@ def ShopAnalysis(request):
     price = [i['price'] for i in temp]
 
     return Response({"dates": dates, "prices": price}, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def UpdateShopDetails(request):
+    data = request.data
+    shop = Shop.objects.filter(id=int(data["shopID"])).first()
+    shop.currentOffer = float(data["currentOffer"])
+    shop.save()
+
+    return Response(ShopSerializer(shop).data, status=status.HTTP_200_OK)
