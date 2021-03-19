@@ -1,7 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_init
 
 
 class CustomerProfile(models.Model):
@@ -99,6 +99,22 @@ class CustomerOrder(models.Model):
         max_length=1000, default="")
     typeOfPayment = models.ForeignKey(
         PaymentCategory, on_delete=models.CASCADE, null=True)
+
+    @staticmethod
+    def post_save(sender, **kwargs):
+        instance = kwargs.get('instance')
+        created = kwargs.get('date')
+        if instance.previous_status != instance.status or created:
+            print("status changed")
+
+    @staticmethod
+    def remember_status(sender, **kwargs):
+        instance = kwargs.get('instance')
+        instance.previous_status = instance.status
+
+
+post_save.connect(CustomerOrder.post_save, sender=CustomerOrder)
+post_init.connect(CustomerOrder.remember_status, sender=CustomerOrder)
 
 
 class FireabaseToken(models.Model):
