@@ -364,6 +364,13 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 
 ###############################################################################
 
+All orders of vendors shop (GET)
+
+http://127.0.0.1:8000/api/vendorshoporder/
+
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+###############################################################################
 
 
 
