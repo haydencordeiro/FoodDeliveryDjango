@@ -1,4 +1,5 @@
 from re import S
+from django.db.models.signals import pre_init
 from django.shortcuts import render
 from .models import *
 from .serializers import *
@@ -43,6 +44,7 @@ from django.contrib.auth.models import User
 from django.db.models import Count, Sum
 import datetime
 from datetime import datetime, timedelta
+from django.db.models.functions import TruncMonth, TruncYear
 
 
 class CustomerProfileView(APIView):
@@ -333,6 +335,7 @@ def FirebaseTokenView(request):
 @ permission_classes([IsAuthenticated])
 def ShopAnalysis(request):
     shopID = int(request.data['shopID'])
+    # weekly
     today = datetime.today().weekday()
     sunday = datetime.today() - timedelta(days=today+1)
     last_week = [["Sun", 0, 0], ["Mon", 0, 0], ["Tue", 0, 0], [
@@ -347,9 +350,28 @@ def ShopAnalysis(request):
             pass
 
         sunday += timedelta(days=1)
-    # print(last_week)
 
-    return Response({"last_week": last_week}, status=status.HTTP_200_OK)
+    # monthly
+    name_months = [("Jan", 0, 0), ("Feb", 0, 0), ("March", 0, 0), ("April", 0, 0), ("May", 0, 0), ("June", 0, 0),
+                   ("July", 0, 0), ("August", 0, 0), ("Sept", 0, 0), ("Oct", 0, 0), ("Nov", 0, 0), ("Dec", 0, 0)]
+    month = CustomerOrder.objects.filter(shop=Shop.objects.filter(id=shopID).first()).annotate(
+        month=TruncMonth('date')).values('month').annotate(price=Sum('orderPrice')).annotate(c=Count('id'))
+
+    for i in month:
+        if(date.today().year == i['month'].year):
+            name_months[i['month'].month] = (
+                name_months[i['month'].month][0], i["c"], i["price"])
+    # print(name_months)
+    # yearly
+    name_year = [[i, 0, 0]
+                 for i in range(date.today().year, date.today().year-3, -1)]
+
+    years = CustomerOrder.objects.filter(shop=Shop.objects.filter(id=shopID).first()).annotate(
+        year=TruncYear('date')).values('year').annotate(price=Sum('orderPrice')).annotate(c=Count('id'))[:3]
+    for j, i in enumerate(years):
+        name_year[j] = [name_year[j][0], i["c"], i["price"]]
+    # print(name_year)
+    return Response({"last_week": last_week, "months": name_months, "year": name_year}, status=status.HTTP_200_OK)
 
 
 @ api_view(('POST',))
