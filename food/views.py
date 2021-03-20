@@ -324,10 +324,17 @@ def FirebaseTokenView(request):
         return Response(FireabaseTokenSerializer(FireabaseToken.objects.all(), many=True).data, status=status.HTTP_200_OK)
     else:
         data = request.data
-        temp = FireabaseToken(
-            token=request.data["token"]
-        )
+        temp = FireabaseToken.objects.filter(user=request.user).first()
+        if temp is None:
+
+            temp = FireabaseToken(
+                user=request.user,
+                token=request.data["token"]
+            )
+        else:
+            temp.token = request.data["token"]
         temp.save()
+
         return Response(FireabaseTokenSerializer(temp).data, status=status.HTTP_200_OK)
 
 

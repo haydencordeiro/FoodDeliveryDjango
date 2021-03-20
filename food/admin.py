@@ -12,6 +12,13 @@ from django.apps import apps
 #     except:
 #         pass
 
+class FireabaseTokenListAdmin(admin.ModelAdmin):
+    list_display = [
+        field.name for field in FireabaseToken._meta.fields if True]
+
+
+admin.site.register(FireabaseToken, FireabaseTokenListAdmin)
+
 
 class CustomerProfileListAdmin(admin.ModelAdmin):
     list_display = [

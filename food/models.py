@@ -119,6 +119,8 @@ post_init.connect(CustomerOrder.remember_status, sender=CustomerOrder)
 
 class FireabaseToken(models.Model):
     token = models.CharField(max_length=500)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.token
