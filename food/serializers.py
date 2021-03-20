@@ -106,7 +106,7 @@ class ProductSerializer(serializers.ModelSerializer):
         rep = super(ProductSerializer,
                     self).to_representation(instance)
         for i in instance.shop._meta.fields:
-            if i.name != "locality":
+            if i.name != "locality" and i.name != "vendor":
                 rep["shop"+str(i.name)] = getattr(instance.shop, str(i.name))
             rep["shoplocality"] = instance.shop.locality.name
         return rep
