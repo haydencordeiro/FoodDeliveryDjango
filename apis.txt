@@ -214,7 +214,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 Body
 name:test product
 price:12
-shop:1
+shopID:1
 category:1
 productImage:https://imgur.com/r/food/K1zmsYt
 

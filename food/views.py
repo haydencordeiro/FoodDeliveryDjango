@@ -256,7 +256,7 @@ def AddProduct(request):
 
         name=data['name'],
         price=float(data['price']),
-        shop=Shop.objects.get(id=int(data["shop"])),
+        shop=Shop.objects.get(id=int(data["shopID"])),
         category=ProductCategory.objects.get(id=int(data["category"])),
         productImage=data['productImage'],
 
