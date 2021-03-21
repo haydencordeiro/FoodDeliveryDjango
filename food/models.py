@@ -132,7 +132,7 @@ class CustomerOrder(models.Model):
                 user=instance.orderFor).first()
             usertoken = user.token
             vendor = FireabaseToken.objects.filter(
-                user=instance.orderFor).first()
+                user=instance.orderFor.shop.vendor).first()
             vendortoken = vendor.token
             status = instance.status
             if status == "shoppending":
