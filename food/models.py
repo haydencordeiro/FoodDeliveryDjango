@@ -2,6 +2,27 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_init
+import requests
+
+
+def sendNotification(usertoken, title, body):
+    userdata = {
+        "to": str(usertoken),
+        "notification": {
+            "body": str(title),
+            "title": str(body),
+            "content_available": True,
+            "priority": "high"
+        }
+
+    }
+    headers = {
+        "Authorization": "key=AAAAwVFO9Fw:APA91bHymQMWRKlGHZOVMxp4_-0HA5vOlybPEpCU7NHOs1v9lkkd5JrtYzsU_3UYH5-nxcSZYA9xUOVYfpyKPE_YFdL2BgCKUvbIBBNuqfvIAOcbjLZ6eQ7o4SCAFG1UGBp8X7JnB2HI",
+        "Content-Type": "application/json"
+
+    }
+    r = requests.post(
+        'https://fcm.googleapis.com/fcm/send',  json=userdata, headers=headers)
 
 
 class CustomerProfile(models.Model):
@@ -106,6 +127,9 @@ class CustomerOrder(models.Model):
         created = kwargs.get('date')
         if instance.previous_status != instance.status or created:
             print("status changed")
+
+            token = FireabaseToken(user=instance.orderFor).first().token
+            sendNotification(token, 'Title', str(instance.status))
 
     @staticmethod
     def remember_status(sender, **kwargs):
