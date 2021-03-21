@@ -114,7 +114,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class CustomerOrderSerializer(serializers.ModelSerializer):
     product = ProductSerializer(many=True)
-    # locality = ShopLocalitySerializer()
+    locality = ShopLocalitySerializer()
 
     class Meta:
         model = CustomerOrder
@@ -127,7 +127,7 @@ class CustomerOrderSerializer(serializers.ModelSerializer):
         rep['customersName'] = instance.orderFor.first_name
         rep['customerPhoneNo'] = CustomerProfile.objects.get(
             user=instance.orderFor).phoneNo
-        rep['locality'] = instance.locality.name
+        # rep['locality'] = instance.locality.name
         t = str(instance.time).split(':')
 
         d = datetime.strptime(t[0]+":"+t[1], "%H:%M")

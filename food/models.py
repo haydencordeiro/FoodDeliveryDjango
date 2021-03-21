@@ -99,6 +99,7 @@ class PaymentCategory(models.Model):
 
 
 class CustomerOrder(models.Model):
+
     orderFor = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True)
     product = models.ManyToManyField(
@@ -110,6 +111,7 @@ class CustomerOrder(models.Model):
 
     date = models.DateField(auto_now_add=True, null=True)
     time = models.TimeField(auto_now_add=True, null=True)
+    orderImg = models.CharField(max_length=1000, null=True)
     status = models.CharField(max_length=1000, null=True)
     orderPrice = models.FloatField(default=100)
     deliveryboy = models.ForeignKey(
