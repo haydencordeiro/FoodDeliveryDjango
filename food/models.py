@@ -128,9 +128,28 @@ class CustomerOrder(models.Model):
         if instance.previous_status != instance.status or created:
             print("status changed")
 
-            token = FireabaseToken.objects.filter(
-                user=instance.orderFor).first().token
-            sendNotification(token, 'Title', str(instance.status))
+            user = FireabaseToken.objects.filter(
+                user=instance.orderFor).first()
+            usertoken = user.token
+            vendor = FireabaseToken.objects.filter(
+                user=instance.orderFor).first()
+            vendortoken = vendor.token
+            status = instance.status
+            if status == "shoppending":
+                sendNotification(vendortoken, 'New Order',
+                                 "A new order has been placed")
+            elif status == "shopreject":
+                sendNotification(
+                    usertoken, 'Order Staus', "Your order has been denied")
+            elif status == "pending":
+                sendNotification(usertoken, 'Order Status',
+                                 "Your order is beign prepared")
+            elif status == "inorder":
+                sendNotification(usertoken, 'Order Staus',
+                                 "Your order is on the way")
+            elif status == "delivered":
+                sendNotification(usertoken, 'Order Status',
+                                 "You have recived your order")
 
     @staticmethod
     def remember_status(sender, **kwargs):
