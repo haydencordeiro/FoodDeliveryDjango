@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'djoser',
     'food',
+    "push_notifications"
 ]
+
+PUSH_NOTIFICATIONS_SETTINGS = {
+    "FCM_API_KEY": "AAAAwVFO9Fw:APA91bHymQMWRKlGHZOVMxp4_-0HA5vOlybPEpCU7NHOs1v9lkkd5JrtYzsU_3UYH5-nxcSZYA9xUOVYfpyKPE_YFdL2BgCKUvbIBBNuqfvIAOcbjLZ6eQ7o4SCAFG1UGBp8X7JnB2HI"
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
