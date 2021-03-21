@@ -2,6 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_init
+from push_notifications.gcm import send_message
+from push_notifications.models import GCMDevice
 
 
 class CustomerProfile(models.Model):
@@ -105,7 +107,21 @@ class CustomerOrder(models.Model):
         instance = kwargs.get('instance')
         created = kwargs.get('date')
         if instance.previous_status != instance.status or created:
-            print("status changed")
+            pass
+        print("status changed")
+        print("sending notifications to ")
+        print(instance.orderFor.first_name)
+        ''' use this if u want bulk '''
+        # send_message(None, {"body": "Hello members!", "title": "Niggaland",
+        #                     "android_channel_id": "org.fooddelivery"}, to="/topics/deliveries", cloud_type="FCM")
+
+        # tokens=FireabaseToken.objects.filter(user=instance.orderFor)
+        tokens = FireabaseToken.objects.all()
+        for i in tokens:
+            fcm_device = GCMDevice.objects.create(
+                registration_id=str(i.token), cloud_message_type="FCM")
+            fcm_device.send_message("Hey {}".format(instance.orderFor.first_name), extra={
+                                    "title": "Notification title"})
 
     @staticmethod
     def remember_status(sender, **kwargs):
