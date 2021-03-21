@@ -191,7 +191,7 @@ def CustomerBuyProduct(request):
         addressinwords=data["addressinwords"],
         typeOfPayment=PaymentCategory.objects.filter(
             name=data["typeOfPayment"]).first(),
-        shop=Shop.object.filter(id=int(data["shopID"])).first()
+        shop=Shop.objects.filter(id=int(data["shopID"])).first()
 
     )
     temp.save()
