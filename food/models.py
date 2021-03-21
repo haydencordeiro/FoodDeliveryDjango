@@ -128,7 +128,8 @@ class CustomerOrder(models.Model):
         if instance.previous_status != instance.status or created:
             print("status changed")
 
-            token = FireabaseToken(user=instance.orderFor).first().token
+            token = FireabaseToken.objects.filter(
+                user=instance.orderFor).first().token
             sendNotification(token, 'Title', str(instance.status))
 
     @staticmethod
