@@ -141,7 +141,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 "status":"pending",
 addressinwords:"home",
 typeOfPayment:cash (cash or card string)
-shop:1 (int)
+shopID:1 (int)
 
 }
 

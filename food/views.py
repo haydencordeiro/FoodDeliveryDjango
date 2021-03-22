@@ -219,7 +219,7 @@ def CustomerBuyProduct(request):
     for i in list(data['productId']):
         if i != '[' or i != ']':
             try:
-                temp.product.add(Product.objects.get(id=i))
+                temp.product.add(Product.objects.get(id=int(i)))
             except:
                 pass
     temp.save()
