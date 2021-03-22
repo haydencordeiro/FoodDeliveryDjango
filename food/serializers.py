@@ -67,7 +67,7 @@ class ShopLocalitySerializer(serializers.ModelSerializer):
 
 
 class ShopSerializer(serializers.ModelSerializer):
-    # locality = ShopLocalitySerializer()
+    locality = ShopLocalitySerializer()
 
     class Meta:
         model = Shop
