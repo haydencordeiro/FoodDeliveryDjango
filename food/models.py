@@ -55,7 +55,8 @@ class Shop(models.Model):
         User, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=500)
     currentOffer = models.FloatField()
-    ShopImg = models.CharField(max_length=1000, blank=True)
+    ShopImg = models.CharField(max_length=500, blank=True,
+                               default="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80.jpg")
     locality = models.ForeignKey(
         ShopLocality, on_delete=models.CASCADE, null=True)
     latitude = models.FloatField(null=True)
@@ -85,7 +86,7 @@ class Product(models.Model):
     category = models.ForeignKey(
         ProductCategory, on_delete=models.CASCADE, null=True)
     productImage = models.CharField(
-        max_length=1000, default="https://i.imgur.com/K1zmsYt.jpg")
+        max_length=500, default="https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80")
 
     def __str__(self):
         return self.name
@@ -111,7 +112,8 @@ class CustomerOrder(models.Model):
 
     date = models.DateField(auto_now_add=True, null=True)
     time = models.TimeField(auto_now_add=True, null=True)
-    orderImg = models.CharField(max_length=1000, null=True)
+    orderImg = models.CharField(
+        max_length=500, null=True, default="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80.jpg")
     status = models.CharField(max_length=1000, null=True)
     orderPrice = models.FloatField(default=100)
     deliveryboy = models.ForeignKey(

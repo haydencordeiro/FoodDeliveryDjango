@@ -431,3 +431,10 @@ def VendorsShopOrders(request):
     shop = Shop.objects.filter(vendor=request.user).first()
     orders = CustomerOrder.objects.filter(shop=shop)
     return Response(CustomerOrderSerializer(orders, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def SingleShopDetails(request):
+    shop = Shop.objects.filter(vendor=request.user).first()
+    return Response(ShopSerializer(shop).data, status=status.HTTP_200_OK)

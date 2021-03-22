@@ -12,6 +12,11 @@ from django.apps import apps
 #     except:
 #         pass
 
+admin.site.index_title = "Food Delviery"
+admin.site.site_header = "Food Delviery"
+admin.site.site_title = "Food Delviery"
+
+
 class FireabaseTokenListAdmin(admin.ModelAdmin):
     list_display = [
         field.name for field in FireabaseToken._meta.fields if True]

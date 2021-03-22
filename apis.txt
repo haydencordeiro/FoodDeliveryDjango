@@ -373,6 +373,12 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 ###############################################################################
 
 
+Single Shop Details (GET)
+http://127.0.0.1:8000/api/singleshopdetails/
+
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+###############################################################################
 
 Customer :
 customer

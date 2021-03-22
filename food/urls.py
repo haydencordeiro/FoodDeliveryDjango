@@ -90,6 +90,11 @@ urlpatterns = [
          name='VendorsShopOrders'),
 
 
+    path('api/singleshopdetails/', SingleShopDetails,
+         name='SingleShopDetails'),
+
+
+
 
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
