@@ -67,7 +67,7 @@ class ShopLocalitySerializer(serializers.ModelSerializer):
 
 
 class ShopSerializer(serializers.ModelSerializer):
-    locality = ShopLocalitySerializer()
+    # locality = ShopLocalitySerializer()
 
     class Meta:
         model = Shop
@@ -86,6 +86,10 @@ class ShopSerializer(serializers.ModelSerializer):
         except:
             pass
         rep["shopID"] = instance.id
+        try:
+            rep["shoplocality"] = instance.locality.name
+        except:
+            rep["shoplocality"] = ""
         return rep
 
 

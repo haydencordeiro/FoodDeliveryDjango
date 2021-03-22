@@ -1,8 +1,10 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.query import ModelIterable
 from django.db.models.signals import post_save, post_init
 import requests
+import random
 
 
 def sendNotification(usertoken, title, body):
@@ -124,36 +126,44 @@ class CustomerOrder(models.Model):
         max_length=1000, default="")
     typeOfPayment = models.ForeignKey(
         PaymentCategory, on_delete=models.CASCADE, null=True)
+    OTP = models.IntegerField(null=True, default=0)
 
     @staticmethod
     def post_save(sender, **kwargs):
         instance = kwargs.get('instance')
-        created = kwargs.get('date')
-        if instance.previous_status != instance.status or created:
-            print("status changed")
 
-            user = FireabaseToken.objects.filter(
-                user=instance.orderFor).first()
-            usertoken = user.token
-            vendor = FireabaseToken.objects.filter(
-                user=instance.shop.vendor).first()
-            vendortoken = vendor.token
-            status = instance.status
-            if status == "shoppending":
-                sendNotification(vendortoken, 'New Order',
-                                 "A new order has been placed")
-            elif status == "shopreject":
-                sendNotification(
-                    usertoken, 'Order Staus', "Your order has been denied")
-            elif status == "pending":
-                sendNotification(usertoken, 'Order Status',
-                                 "Your order is beign prepared")
-            elif status == "inorder":
-                sendNotification(usertoken, 'Order Staus',
-                                 "Your order is on the way")
-            elif status == "delivered":
-                sendNotification(usertoken, 'Order Status',
-                                 "You have recived your order")
+        if instance.previous_status != instance.status or instance.OTP == 0:
+            print("status changed")
+            try:
+                try:
+                    user = FireabaseToken.objects.filter(
+                        user=instance.orderFor).first()
+                    usertoken = user.token
+                    vendor = FireabaseToken.objects.filter(
+                        user=instance.shop.vendor).first()
+                    vendortoken = vendor.token
+                except:
+                    pass
+                status = instance.status
+                if instance.OTP == 0:
+                    instance.OTP = random.randint(1000, 9999)
+                    instance.save()
+                    sendNotification(vendortoken, 'New Order',
+                                     "A new order has been placed")
+                elif status == "shopreject":
+                    sendNotification(
+                        usertoken, 'Order Staus', "Your order has been denied")
+                elif status == "pending":
+                    sendNotification(usertoken, 'Order Status',
+                                     "Your order is beign prepared")
+                elif status == "inorder":
+                    sendNotification(usertoken, 'Order Staus',
+                                     "Your order is on the way")
+                elif status == "delivered":
+                    sendNotification(usertoken, 'Order Status',
+                                     "You have recived your order")
+            except:
+                pass
 
     @staticmethod
     def remember_status(sender, **kwargs):

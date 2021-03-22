@@ -202,7 +202,7 @@ def CustomerBuyProduct(request):
     tempProductList = []
     temp = CustomerOrder(
         orderFor=request.user,
-        orderImg=data['orderImg'],
+        orderImg=getFoodImageURL("food"),
         latitude=data['latitude'],
         longitude=data['longitude'],
         status=data['status'],

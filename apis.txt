@@ -397,14 +397,17 @@ shopID 1
 
 
 Customer :
-customer
-customer
+3
+3
 
 DelvieryBoy
-delivery
-delivery
+2
+2
 
+vendor
+1
+1
 
-Admin/vendor
+Admin
 hayden
 XYZ@1234
