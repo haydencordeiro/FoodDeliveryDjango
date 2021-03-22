@@ -48,6 +48,7 @@ from django.db.models.functions import TruncMonth, TruncYear
 import requests
 import json
 import random
+from django.db.models import Q
 
 
 def getFoodImageURL(foodName):
@@ -169,7 +170,7 @@ def RegisterNewUserDeliveryBoy(request):
 @ permission_classes([IsAuthenticated])
 def LoggedInCustomerOrders(request):
     temp = CustomerOrder.objects.filter(
-        orderFor=request.user).order_by('-date').order_by('-time')
+        orderFor=request.user).filter(Q(status="pending") | Q(status="inorder")).order_by('-date').order_by('-time')
     return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
 
 
