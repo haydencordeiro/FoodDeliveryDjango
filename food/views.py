@@ -50,6 +50,21 @@ import json
 import random
 
 
+def getFoodImageURL(foodName):
+    headers = {
+        "Authorization": "563492ad6f917000010000013784e527f0764d279ff0e8157222e0d2",
+        "Content-Type": "application/json"
+
+    }
+    r = requests.get(
+        'https://api.pexels.com/v1/search?query={}&per_page=1'.format(foodName), headers=headers)
+    data = r.json()
+    try:
+        return (random.choice(data["photos"])['src']['original']+"?auto=compress")
+    except:
+        return "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress"
+
+
 class CustomerProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -252,20 +267,6 @@ def DeliveryinorderOrders(request):
 
 # Vendor
 
-def getFoodImageURL(foodName):
-    headers = {
-        "Authorization": "563492ad6f917000010000013784e527f0764d279ff0e8157222e0d2",
-        "Content-Type": "application/json"
-
-    }
-    r = requests.get(
-        'https://api.pexels.com/v1/search?query={}&per_page=1'.format(foodName), headers=headers)
-    data = r.json()
-    try:
-        return (random.choice(data["photos"])['src']['original']+"?auto=compress")
-    except:
-        return "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress"
-
 
 @ api_view(('POST',))
 @ permission_classes([IsAuthenticated])
@@ -312,7 +313,7 @@ def AddShop(request):
         vendor=request.user,
         name=data["name"],
         currentOffer=float(data["currentOffer"]),
-        ShopImg=data["ShopImg"],
+        ShopImg=getFoodImageURL('restaurent'),
         locality=ShopLocality.objects.filter(id=int(data["locality"])).first(),
         latitude=float(data["latitude"]),
         longitude=float(data["longitude"]),
