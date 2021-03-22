@@ -380,6 +380,22 @@ Header
 Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 ###############################################################################
 
+
+
+All products of shop (POST)
+http://127.0.0.1:8000/api/singleshopallproducts/
+
+
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+Body
+shopID 1
+
+###############################################################################
+
+
+
 Customer :
 customer
 customer

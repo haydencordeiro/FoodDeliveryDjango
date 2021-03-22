@@ -438,3 +438,11 @@ def VendorsShopOrders(request):
 def SingleShopDetails(request):
     shop = Shop.objects.filter(vendor=request.user).first()
     return Response(ShopSerializer(shop).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def SingleShopAllProducts(request):
+    shop = Shop.objects.filter(id=int(request.data["shopID"])).first()
+    products = Product.objects.filter(shop=shop)
+    return Response(ProductSerializer(products, many=True).data, status=status.HTTP_200_OK)
