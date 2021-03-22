@@ -45,6 +45,9 @@ from django.db.models import Count, Sum
 import datetime
 from datetime import datetime, timedelta
 from django.db.models.functions import TruncMonth, TruncYear
+import requests
+import json
+import random
 
 
 class CustomerProfileView(APIView):
@@ -249,6 +252,20 @@ def DeliveryinorderOrders(request):
 
 # Vendor
 
+def getFoodImageURL(foodName):
+    headers = {
+        "Authorization": "563492ad6f917000010000013784e527f0764d279ff0e8157222e0d2",
+        "Content-Type": "application/json"
+
+    }
+    r = requests.get(
+        'https://api.pexels.com/v1/search?query={}&per_page=1'.format(foodName), headers=headers)
+    data = r.json()
+    try:
+        return (random.choice(data["photos"])['src']['original']+"?auto=compress")
+    except:
+        return "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress"
+
 
 @ api_view(('POST',))
 @ permission_classes([IsAuthenticated])
@@ -261,7 +278,7 @@ def AddProduct(request):
         price=float(data['price']),
         shop=Shop.objects.get(id=int(data["shopID"])),
         category=ProductCategory.objects.get(id=int(data["category"])),
-        productImage=data['productImage'],
+        productImage=getFoodImageURL(data['name']),
 
 
     )
