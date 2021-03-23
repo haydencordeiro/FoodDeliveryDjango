@@ -216,13 +216,26 @@ def CustomerBuyProduct(request):
 
     )
     temp.save()
+    productIDS = data['productId'].split(',')
+    try:
+        quan = data['productQuan'].split(',')
+    except:
+        quan = []
+    for idx, i in enumerate(productIDS):
 
-    for i in list(data['productId']):
-        if i != '[' or i != ']':
-            try:
-                temp.product.add(Product.objects.get(id=int(i)))
-            except:
-                pass
+        try:
+            pro = Product.objects.get(id=int(i))
+            temp.product.add(pro)
+            new = ProductQuanities(
+                product=pro,
+                quantity=int(quan[idx]),
+                orderID=temp
+
+            )
+            new.save()
+
+        except:
+            pass
     temp.save()
 
     return Response(CustomerOrderSerializer(temp).data, status=status.HTTP_200_OK)

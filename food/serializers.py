@@ -116,6 +116,14 @@ class ProductSerializer(serializers.ModelSerializer):
         return rep
 
 
+class ProductQuanitiesSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = ProductQuanities
+        fields = ['product', 'quantity']
+
+
 class CustomerOrderSerializer(serializers.ModelSerializer):
     product = ProductSerializer(many=True)
     locality = ShopLocalitySerializer()
@@ -136,5 +144,7 @@ class CustomerOrderSerializer(serializers.ModelSerializer):
 
         d = datetime.strptime(t[0]+":"+t[1], "%H:%M")
         rep['time'] = d.strftime("%I:%M %p")
+        rep["productwithquant"] = ProductQuanitiesSerializer(
+            ProductQuanities.objects.filter(orderID=instance.id), many=True).data
 
         return rep

@@ -17,6 +17,14 @@ admin.site.site_header = "Food Delviery"
 admin.site.site_title = "Food Delviery"
 
 
+class ProductQuanitiesListAdmin(admin.ModelAdmin):
+    list_display = [
+        field.name for field in ProductQuanities._meta.fields if True]
+
+
+admin.site.register(ProductQuanities, ProductQuanitiesListAdmin)
+
+
 class FireabaseTokenListAdmin(admin.ModelAdmin):
     list_display = [
         field.name for field in FireabaseToken._meta.fields if True]

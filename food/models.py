@@ -175,6 +175,14 @@ post_save.connect(CustomerOrder.post_save, sender=CustomerOrder)
 post_init.connect(CustomerOrder.remember_status, sender=CustomerOrder)
 
 
+class ProductQuanities(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, blank=True)
+    quantity = models.IntegerField()
+    orderID = models.ForeignKey(
+        CustomerOrder, on_delete=models.CASCADE, blank=True, null=True)
+
+
 class FireabaseToken(models.Model):
     token = models.CharField(max_length=500)
     user = models.OneToOneField(
