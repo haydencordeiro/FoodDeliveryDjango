@@ -1,4 +1,5 @@
 from re import S
+import re
 from django.db.models.signals import pre_init
 from django.shortcuts import render
 from .models import *
@@ -97,16 +98,21 @@ def WhoAmI(request):
 
     }
     vendor = Shop.objects.filter(vendor=request.user)
+    temp = CustomerProfile.objects.filter(user=request.user)
+    delb = DeliveryProfile.objects.filter(user=request.user)
     if len(vendor) > 0:
         data['iam'] = "vendor"
         return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
-    temp = CustomerProfile.objects.filter(user=request.user)
-    if len(temp) > 0:
+
+    elif len(temp) > 0:
         data['iam'] = "customer"
         return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
 
-    else:
+    elif len(delb) > 0:
         data['iam'] = "deliveryboy"
+        return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
+    elif request.user.is_staff:
+        data['iam'] = "admin"
         return HttpResponse(json.dumps(data), status=status.HTTP_200_OK)
 
 
@@ -479,3 +485,13 @@ def SingleShopAllProducts(request):
     shop = Shop.objects.filter(id=int(request.data["shopID"])).first()
     products = Product.objects.filter(shop=shop)
     return Response(ProductSerializer(products, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def UpdateUserDetails(request):
+    data = request.data
+    customer = CustomerProfile.objects.filter(user=request.user).first()
+    customer.phoneNo = data["phoneNo"]
+    customer.user.first_name = data["first_name"]
+    return Response(CustomerProfileSerializer(customer).data, status=status.HTTP_200_OK)

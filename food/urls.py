@@ -95,8 +95,8 @@ urlpatterns = [
 
 
 
-    path('api/singleshopallproducts/', SingleShopAllProducts,
-         name='SingleShopAllProducts'),
+    path('api/updateuserdetails/', UpdateUserDetails,
+         name='UpdateUserDetails'),
 
 
 
