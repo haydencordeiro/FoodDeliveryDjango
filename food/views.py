@@ -175,16 +175,10 @@ def RegisterNewUserDeliveryBoy(request):
 @ api_view(('GET',))
 @ permission_classes([IsAuthenticated])
 def LoggedInCustomerOrders(request):
-    notyetdel = CustomerOrder.objects.filter(
-        orderFor=request.user).filter(Q(status="pending") | Q(status="shoppending")).order_by(*['-date', '-time'])
-    deliv = CustomerOrder.objects.filter(
-        orderFor=request.user).filter(status="delivered").order_by(*['-date', '-time'])
-    d = {
-        "delivered": CustomerOrderSerializer(deliv, many=True).data,
-        "pending": CustomerOrderSerializer(notyetdel, many=True).data,
+    temp = CustomerOrder.objects.filter(
+        orderFor=request.user).filter(Q(status="pending") | Q(status="shoppending") | Q(status="delivered")).order_by(*['-date', '-time'])
 
-    }
-    return Response(d, status=status.HTTP_200_OK)
+    return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
 
 
 @ api_view(('GET',))
