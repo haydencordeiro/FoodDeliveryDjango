@@ -138,7 +138,7 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 "latitude":-1,
 "longitude":1,
 "productId":"1,2,3]",
-quantity:"1,2,2"
+productQuan:"1,2,2"
 "status":"pending",
 addressinwords:"home",
 typeOfPayment:cash (cash or card string)
