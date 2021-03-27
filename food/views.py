@@ -469,7 +469,8 @@ def LoggedInVendorShop(request):
 def VendorsShopOrders(request):
     data = request.data
     shop = Shop.objects.filter(vendor=request.user).first()
-    orders = CustomerOrder.objects.filter(shop=shop)
+    orders = CustomerOrder.objects.filter(
+        shop=shop).order_by(*['-date', '-time'])
     return Response(CustomerOrderSerializer(orders, many=True).data, status=status.HTTP_200_OK)
 
 
