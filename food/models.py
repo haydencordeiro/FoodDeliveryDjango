@@ -194,3 +194,6 @@ class FireabaseToken(models.Model):
 
 class StoreImage(models.Model):
     image = models.ImageField()
+
+    def __str__(self):
+        return self.image.url

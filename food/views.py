@@ -295,6 +295,12 @@ def DeliveryinorderOrders(request):
 @ permission_classes([IsAuthenticated])
 def AddProduct(request):
     data = request.data.copy()
+    food = StoreImage(
+        image=request.data["image"]
+    )
+    food.save()
+    siteLink = "{0}://{1}".format(request.scheme,
+                                  request.get_host())
 
     temp = Product(
 
@@ -302,7 +308,7 @@ def AddProduct(request):
         price=float(data['price']),
         shop=Shop.objects.get(id=int(data["shopID"])),
         category=ProductCategory.objects.get(id=int(data["category"])),
-        productImage=getFoodImageURL(data['name']),
+        productImage="{}".format(siteLink+food.image.url),
 
 
     )
@@ -508,5 +514,7 @@ def StoreImageView(request, *args, **kwargs):
         image=request.data["image"]
     )
     temp.save()
+    siteLink = "{0}://{1}".format(request.scheme,
+                                  request.get_host())
 
-    return Response({"url":  "{}".format(temp.image.url)}, status=status.HTTP_200_OK)
+    return Response({"url":  "{}".format(siteLink+temp.image.url)}, status=status.HTTP_200_OK)
