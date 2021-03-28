@@ -50,6 +50,7 @@ import requests
 import json
 import random
 from django.db.models import Q
+from django.conf import settings
 
 
 def getFoodImageURL(foodName):
@@ -497,3 +498,15 @@ def UpdateUserDetails(request):
     customer.phoneNo = data["phoneNo"]
     customer.user.first_name = data["first_name"]
     return Response(CustomerProfileSerializer(customer).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def StoreImageView(request, *args, **kwargs):
+    print(request, args, kwargs)
+    temp = StoreImage(
+        image=request.data["image"]
+    )
+    temp.save()
+
+    return Response({"url":  "{}".format(temp.image.url)}, status=status.HTTP_200_OK)

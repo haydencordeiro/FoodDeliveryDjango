@@ -17,6 +17,14 @@ admin.site.site_header = "Food Delviery"
 admin.site.site_title = "Food Delviery"
 
 
+class StoreImageListAdmin(admin.ModelAdmin):
+    list_display = [
+        field.name for field in StoreImage._meta.fields if True]
+
+
+admin.site.register(StoreImage, StoreImageListAdmin)
+
+
 class ProductQuanitiesListAdmin(admin.ModelAdmin):
     list_display = [
         field.name for field in ProductQuanities._meta.fields if True]

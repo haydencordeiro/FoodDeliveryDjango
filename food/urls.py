@@ -105,6 +105,9 @@ urlpatterns = [
     path('api/singleshopallproducts/', SingleShopAllProducts,
          name='SingleShopAllProducts'),
 
+    path('api/storeimage/', StoreImageView,
+         name='StoreImageView'),
+
 
 
 

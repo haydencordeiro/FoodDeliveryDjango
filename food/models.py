@@ -190,3 +190,7 @@ class FireabaseToken(models.Model):
 
     def __str__(self):
         return self.token
+
+
+class StoreImage(models.Model):
+    image = models.ImageField()
