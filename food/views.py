@@ -509,9 +509,9 @@ def UpdateUserDetails(request):
 @ api_view(('POST',))
 @ permission_classes([IsAuthenticated])
 def StoreImageView(request, *args, **kwargs):
-    print(request, args, kwargs)
+    print(request.FILES['image'], args, kwargs)
     temp = StoreImage(
-        image=request.data["image"]
+        image=request.FILES['image']
     )
     temp.save()
     siteLink = "{0}://{1}".format(request.scheme,
