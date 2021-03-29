@@ -177,7 +177,7 @@ def RegisterNewUserDeliveryBoy(request):
 @ permission_classes([IsAuthenticated])
 def LoggedInCustomerOrders(request):
     temp = CustomerOrder.objects.filter(
-        orderFor=request.user).filter(Q(status="pending") | Q(status="shoppending")).order_by(*['-date', '-time'])
+        orderFor=request.user).filter(Q(status="pending") | Q(status="inorder")).order_by(*['-date', '-time'])
 
     return Response(CustomerOrderSerializer(temp, many=True).data, status=status.HTTP_200_OK)
 
