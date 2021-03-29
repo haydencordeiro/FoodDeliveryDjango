@@ -308,7 +308,7 @@ def AddProduct(request):
         price=float(data['price']),
         shop=Shop.objects.get(id=int(data["shopID"])),
         category=ProductCategory.objects.get(id=int(data["category"])),
-        productImage="{}".format(siteLink+food.image.url),
+        productImage=data['image'],
 
 
     )
