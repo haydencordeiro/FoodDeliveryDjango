@@ -222,7 +222,8 @@ def CustomerBuyProduct(request):
             name=data["typeOfPayment"]).first(),
         shop=Shop.objects.filter(id=int(data["shopID"])).first(),
         locality=Shop.objects.filter(id=int(data["shopID"])).first().locality,
-        orderPrice=float(data["orderPrice"])
+        orderPrice=float(data["orderPrice"]),
+        payment_status=data["payment_status"]
 
     )
     temp.save()

@@ -144,6 +144,7 @@ addressinwords:"home",
 typeOfPayment:cash (cash or card string)
 shopID:1 (int)
 orderPrice: 100 float
+payment_status:(string)
 
 
 }
