@@ -150,8 +150,13 @@ class CustomerOrder(models.Model):
                 if instance.OTP == 0:
                     instance.OTP = random.randint(1000, 9999)
                     instance.save()
+
                     sendNotification(vendortoken, 'New Order',
                                      "A new order has been placed")
+
+                    sendNotification(usertoken, 'Order Placed',
+                                     "Order has been placed awaiting for the restaurant response")
+
                 elif status == "shopreject":
                     sendNotification(
                         usertoken, 'Order Staus', "Your order has been denied")
