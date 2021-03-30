@@ -547,7 +547,8 @@ def GeneratetOrderIDPayment(name, email, phoneNo, amount):
         "phone": str(phoneNo),
         "amount": str(amount),
         "transaction_id": uuid.uuid4(),
-        "currency": "INR"
+        "currency": "INR",
+        "redirect_url": "https://test.instamojo.com/integrations/android/redirect/"
     }
     # print(data2)
     res2 = requests.post(
