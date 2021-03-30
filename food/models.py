@@ -127,7 +127,7 @@ class CustomerOrder(models.Model):
     typeOfPayment = models.ForeignKey(
         PaymentCategory, on_delete=models.CASCADE, null=True)
     OTP = models.IntegerField(null=True, default=0)
-    payment_status = models.odels.CharField(
+    payment_status = models.CharField(
         max_length=100, null=True, blank=True)
 
     @staticmethod
