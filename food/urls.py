@@ -107,6 +107,8 @@ urlpatterns = [
 
     path('api/storeimage/', StoreImageView,
          name='StoreImageView'),
+    path('api/getorderid/', GetOrderID,
+         name='GetOrderID'),
 
 
 

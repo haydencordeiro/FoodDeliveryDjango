@@ -50,7 +50,9 @@ import requests
 import json
 import random
 from django.db.models import Q
-from django.conf import settings
+import requests
+import json
+import uuid
 
 
 def getFoodImageURL(foodName):
@@ -518,3 +520,54 @@ def StoreImageView(request, *args, **kwargs):
                                   request.get_host())
 
     return Response({"url":  "{}".format(siteLink+temp.image.url)}, status=status.HTTP_200_OK)
+
+
+def GeneratetOrderIDPayment(name, email, phoneNo, amount):
+    data1 = {
+        "client_id": "test_UnAu7a0tHRsdeequ20AEKVCNR2NHOUpBydi",
+        "client_secret": "test_dzbvZFl6Cl5anSSEwV8wDcgNtAwygXGzi7aPUMgDk2g14lz9U4uiebOB4ZNsqcJhAET3KaN6nhB9Rbj9NDP3ORc6FQRSEF4wYB1jcMidH4miO1HhYsOIx3rI7dN",
+        "grant_type": "client_credentials"
+    }
+
+    res1 = requests.post(
+        "https://test.instamojo.com/oauth2/token/", data=data1)
+    res1 = res1.json()
+
+    header2 = {
+        "Authorization": "Bearer {}".format(res1["access_token"]),
+        "Content-Type": "application/x-www-form-urlencoded",
+        "client_id": "test_UnAu7a0tHRsdeequ20AEKVCNR2NHOUpBydi",
+        "client_secret": "test_dzbvZFl6Cl5anSSEwV8wDcgNtAwygXGzi7aPUMgDk2g14lz9U4uiebOB4ZNsqcJhAET3KaN6nhB9Rbj9NDP3ORc6FQRSEF4wYB1jcMidH4miO1HhYsOIx3rI7dN",
+        "grant_type": "client_credentials"
+    }
+    data2 = {
+        "name": str(name),
+        "email": str(email),
+        "phone": str(phoneNo),
+        "amount": str(amount),
+        "transaction_id": uuid.uuid4(),
+        "currency": "INR"
+    }
+    # print(data2)
+    res2 = requests.post(
+        "https://test.instamojo.com/v2/gateway/orders/",  data=data2, headers=header2)
+    res2 = res2.json()
+    # print(res2)
+    data3 = {
+        "id": str(res2["order"]["id"])
+    }
+    res3 = requests.post(
+        "https://test.instamojo.com/v2/gateway/orders/payment-request/",  data=data3, headers=header2)
+    res3 = res3.json()
+    return(res3["order_id"])
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def GetOrderID(request):
+    user = request.user
+    customer = CustomerProfile.objects.filter(user=user).first()
+    order_id = GeneratetOrderIDPayment(user.first_name, user.email, str(
+        customer.phoneNo), str(request.data["amount"]))
+
+    return Response({"order_id": order_id}, status=status.HTTP_200_OK)
