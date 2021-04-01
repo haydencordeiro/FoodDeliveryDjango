@@ -400,7 +400,7 @@ def ShopAnalysis(request):
         "Wed", 0, 0], ["Thu", 0, 0], ["Fri", 0, 0], ["Sat", 0, 0]]
     for i in range(today+2):
         temp = CustomerOrder.objects.filter(shop=Shop.objects.filter(
-            id=shopID).first()).filter(date=sunday).values("date").annotate(price=Sum('orderPrice')).annotate(c=Count('id'))
+            id=shopID).first()).exclude(status="shoppending").exclude(status="shoprejected").filter(date=sunday).values("date").annotate(price=Sum('orderPrice')).annotate(c=Count('id'))
 
         try:
             last_week[i] = [last_week[i][0], temp[0]["c"], temp[0]["price"]]
@@ -412,7 +412,7 @@ def ShopAnalysis(request):
     # monthly
     name_months = [("Jan", 0, 0), ("Feb", 0, 0), ("March", 0, 0), ("April", 0, 0), ("May", 0, 0), ("June", 0, 0),
                    ("July", 0, 0), ("August", 0, 0), ("Sept", 0, 0), ("Oct", 0, 0), ("Nov", 0, 0), ("Dec", 0, 0)]
-    month = CustomerOrder.objects.filter(shop=Shop.objects.filter(id=shopID).first()).annotate(
+    month = CustomerOrder.objects.filter(shop=Shop.objects.filter(id=shopID).first()).exclude(status="shoppending").exclude(status="shoprejected").annotate(
         month=TruncMonth('date')).values('month').annotate(price=Sum('orderPrice')).annotate(c=Count('id'))
 
     for i in month:
@@ -424,7 +424,7 @@ def ShopAnalysis(request):
     name_year = [[i, 0, 0]
                  for i in range(date.today().year, date.today().year-3, -1)]
 
-    years = CustomerOrder.objects.filter(shop=Shop.objects.filter(id=shopID).first()).annotate(
+    years = CustomerOrder.objects.filter(shop=Shop.objects.filter(id=shopID).first()).exclude(status="shoppending").exclude(status="shoprejected").annotate(
         year=TruncYear('date')).values('year').annotate(price=Sum('orderPrice')).annotate(c=Count('id'))[:3]
     for j, i in enumerate(years):
         name_year[j] = [name_year[j][0], i["c"], i["price"]]
@@ -520,7 +520,7 @@ def StoreImageView(request, *args, **kwargs):
     siteLink = "{0}://{1}".format(request.scheme,
                                   request.get_host())
 
-    return Response({"url":  "{}".format(siteLink+temp.image.url)}, status=status.HTTP_200_OK)
+    return Response({"url":  "{}".format(""+temp.image.url)}, status=status.HTTP_200_OK)
 
 
 def GeneratetOrderIDPayment(name, email, phoneNo, amount):
