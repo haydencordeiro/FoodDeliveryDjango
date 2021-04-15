@@ -573,3 +573,25 @@ def GetOrderID(request):
         customer.phoneNo), str(request.data["amount"]))
 
     return Response({"order_id": order_id}, status=status.HTTP_200_OK)
+
+
+@ api_view(('GET',))
+@ permission_classes([IsAuthenticated])
+def GetDeliveredOrders(request):
+    user = request.user
+    customer = CustomerProfile.objects.filter(user=user).first()
+
+    orders = CustomerOrder.objects.filter(
+        orderFor=customer).filter(status="delivered")
+
+    return Response(CustomerOrderSerializer(orders, many=True).data, status=status.HTTP_200_OK)
+
+
+@ api_view(('POST',))
+@ permission_classes([IsAuthenticated])
+def UpdateDeliveryBoyDetails(request):
+    data = request.data
+    customer = DeliveryProfile.objects.filter(user=request.user).first()
+    customer.phoneNo = data["phoneNo"]
+    customer.user.first_name = data["first_name"]
+    return Response(CustomerProfileSerializer(customer).data, status=status.HTTP_200_OK)

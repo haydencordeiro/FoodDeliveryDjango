@@ -110,6 +110,12 @@ urlpatterns = [
     path('api/getorderid/', GetOrderID,
          name='GetOrderID'),
 
+    path('api/GetDeliveredOrders/', GetDeliveredOrders,
+         name='GetDeliveredOrders'),
+
+    path('api/UpdateDeliveryBoyDetails/', UpdateDeliveryBoyDetails,
+         name='UpdateDeliveryBoyDetails'),
+
 
 
 

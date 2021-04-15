@@ -438,7 +438,21 @@ Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
 Body:
 amount:10 (string)
 ###############################################################################
+Get all delv orderes (GET)
+http://127.0.0.1:8000/api/GetDeliveredOrders/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+###############################################################################
 
+Update Del Boy Details(POST)
+http://127.0.0.1:8000/api/UpdateDeliveryBoyDetails/
+Header
+Authorization Token fbc97380891e2476d2a6555cfc5e1df08a21831b
+
+Body:
+phoneNo
+first_name
+###############################################################################
 
 
 
