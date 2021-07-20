@@ -1,5 +1,5 @@
-# Project Title
-
+# FoodDeliveryDjango
+A Food Delivery application which uses Django Rest Framework as your backend
 ## Table of Contents
 
 - [About](#about)
