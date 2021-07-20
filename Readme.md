@@ -49,10 +49,6 @@ Food Delivery Application
     Instamojo (payment gateway)
 
 ## Screenshots <a name = "screenshots"></a>
+<img src="/screenshots/customer/login.jpeg?raw=true" width="30%"  /> <img src="/screenshots/customer/register.jpeg?raw=true" width="30%"  /> <img src="/screenshots/customer/customerhome.jpeg?raw=true" width="30%"  />
+<img src="/screenshots/customer/customereditprofile.jpeg?raw=true" width="30%"  /> <img src="/screenshots/customer/customerviewshopitems.jpeg?raw=true" width="30%"  /> <img src="/screenshots/customer/customerpay.jpeg?raw=true" width="30%"  />
 
-![Login](/screenshots/customer/login.jpeg?raw=true)
-![Register](/screenshots/customer/register.jpeg?raw=true)
-![Customer Home](/screenshots/customer/customerhome.jpeg?raw=true)
-![Customer Edit Profile](/screenshots/customer/customereditprofile.jpeg?raw=true)
-![Customer View Shopitems](/screenshots/customer/customerviewshopitems.jpeg?raw=true)
-![Customer Pay](/screenshots/customer/customerpay.jpeg?raw=true)
