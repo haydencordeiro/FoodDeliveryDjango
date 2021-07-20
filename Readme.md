@@ -1,5 +1,5 @@
 # FoodDeliveryDjango
-A Food Delivery application which uses Django Rest Framework as your backend
+A Food Delivery application which uses Django Rest Framework as the backend
 ## Table of Contents
 
 - [About](#about)
